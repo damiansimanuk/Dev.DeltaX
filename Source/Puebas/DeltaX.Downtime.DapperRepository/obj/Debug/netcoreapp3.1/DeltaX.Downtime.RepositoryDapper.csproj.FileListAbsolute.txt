@@ -1,0 +1,8 @@
+D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.RepositoryDapper\bin\Debug\netcoreapp3.1\DeltaX.Downtime.RepositoryDapper.deps.json
+D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.RepositoryDapper\bin\Debug\netcoreapp3.1\DeltaX.Downtime.RepositoryDapper.dll
+D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.RepositoryDapper\obj\Debug\netcoreapp3.1\DeltaX.Downtime.RepositoryDapper.csprojAssemblyReference.cache
+D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.RepositoryDapper\obj\Debug\netcoreapp3.1\DeltaX.Downtime.RepositoryDapper.AssemblyInfoInputs.cache
+D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.RepositoryDapper\obj\Debug\netcoreapp3.1\DeltaX.Downtime.RepositoryDapper.AssemblyInfo.cs
+D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.RepositoryDapper\bin\Debug\netcoreapp3.1\DeltaX.Database.dll
+D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.RepositoryDapper\bin\Debug\netcoreapp3.1\DeltaX.Database.pdb
+D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.RepositoryDapper\obj\Debug\netcoreapp3.1\DeltaX.Downtime.RepositoryDapper.csproj.CopyComplete

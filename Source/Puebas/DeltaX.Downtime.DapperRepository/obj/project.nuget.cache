@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "dgSpecHash": "dAHStxs0QE7xw84tAjwmVDHr07up7SYSynVwaobMTUkvfggn64665lqANREs0lKyHEE46BuO1u8/kkU0E+J3tg==",
+  "success": true,
+  "projectFilePath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.DapperRepository\\DeltaX.Downtime.DapperRepository.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sima\\.nuget\\packages\\autofac\\6.0.0\\autofac.6.0.0.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\dapper\\2.0.35\\dapper.2.0.35.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\microsoft.data.sqlite.core\\3.1.9\\microsoft.data.sqlite.core.3.1.9.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.9\\microsoft.extensions.logging.abstractions.3.1.9.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\sqlitepclraw.core\\2.0.2\\sqlitepclraw.core.2.0.2.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\system.reflection.emit.lightweight\\4.7.0\\system.reflection.emit.lightweight.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

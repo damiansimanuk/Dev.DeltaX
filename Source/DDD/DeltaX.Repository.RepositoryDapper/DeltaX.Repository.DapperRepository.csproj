@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.35" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeltaX.Domain.Common\DeltaX.Domain.Common.csproj" />
+    <ProjectReference Include="..\DeltaX.Repository.Common\DeltaX.Repository.Common.csproj" />
+  </ItemGroup>
+
+</Project>

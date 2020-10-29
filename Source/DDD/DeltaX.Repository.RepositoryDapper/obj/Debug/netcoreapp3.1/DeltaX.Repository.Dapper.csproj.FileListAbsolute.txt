@@ -1,0 +1,14 @@
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\bin\Debug\netcoreapp3.1\DeltaX.Repository.Dapper.deps.json
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\bin\Debug\netcoreapp3.1\DeltaX.Repository.Dapper.dll
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\bin\Debug\netcoreapp3.1\DeltaX.Domain.Common.dll
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\bin\Debug\netcoreapp3.1\DeltaX.Repository.Common.dll
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\bin\Debug\netcoreapp3.1\DeltaX.Domain.Common.pdb
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\bin\Debug\netcoreapp3.1\DeltaX.Repository.Common.pdb
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.Dapper.csprojAssemblyReference.cache
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.Dapper.AssemblyInfoInputs.cache
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.Dapper.AssemblyInfo.cs
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.Dapper.csproj.CopyComplete
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\bin\Debug\netcoreapp3.1\DeltaX.Repository.Dapper.pdb
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.Dapper.csproj.CoreCompileInputs.cache
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.Dapper.dll
+D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.Dapper.pdb
