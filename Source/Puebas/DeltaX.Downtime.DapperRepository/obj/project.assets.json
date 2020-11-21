@@ -169,6 +169,9 @@
       "DeltaX.Repository.Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "DeltaX.Domain.Common": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/DeltaX.Repository.Common.dll": {}
         },
@@ -189,6 +192,16 @@
         },
         "runtime": {
           "bin/placeholder/DeltaX.Repository.DapperRepository.dll": {}
+        }
+      },
+      "DeltaX.Utilities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/DeltaX.Utilities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DeltaX.Utilities.dll": {}
         }
       }
     }
@@ -553,6 +566,11 @@
       "type": "project",
       "path": "../../DDD/DeltaX.Repository.RepositoryDapper/DeltaX.Repository.DapperRepository.csproj",
       "msbuildProject": "../../DDD/DeltaX.Repository.RepositoryDapper/DeltaX.Repository.DapperRepository.csproj"
+    },
+    "DeltaX.Utilities/1.0.0": {
+      "type": "project",
+      "path": "../../Core/DeltaX.Utilities/DeltaX.Utilities.csproj",
+      "msbuildProject": "../../Core/DeltaX.Utilities/DeltaX.Utilities.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -563,6 +581,7 @@
       "DeltaX.Database >= 1.0.0",
       "DeltaX.Downtime.Domain >= 1.0.0",
       "DeltaX.Repository.DapperRepository >= 1.0.0",
+      "DeltaX.Utilities >= 1.0.0",
       "Microsoft.Data.Sqlite.Core >= 3.1.9"
     ]
   },
@@ -594,6 +613,9 @@
           "projectReferences": {
             "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Core\\DeltaX.Database\\DeltaX.Database.csproj": {
               "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Core\\DeltaX.Database\\DeltaX.Database.csproj"
+            },
+            "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Core\\DeltaX.Utilities\\DeltaX.Utilities.csproj": {
+              "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Core\\DeltaX.Utilities\\DeltaX.Utilities.csproj"
             },
             "D:\\DEV\\repos\\Dev.DeltaX\\Source\\DDD\\DeltaX.Repository.RepositoryDapper\\DeltaX.Repository.DapperRepository.csproj": {
               "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\DDD\\DeltaX.Repository.RepositoryDapper\\DeltaX.Repository.DapperRepository.csproj"

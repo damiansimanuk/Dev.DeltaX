@@ -52,11 +52,11 @@ namespace DeltaX.Repository.Common.Table
                     EncapsulationSql = "[{0}]";
                     IdentityQueryFormatSql = "SELECT SCOPE_IDENTITY() AS [id]";
                     PagedListQueryFormatSql = "SELECT \n" +
-                       "\t{SelectColumns} \n" +
-                       "FROM {TableName} \n" +
-                       "{WhereClause} \n" +
-                       "{OrderByClause} \n" +
-                       "OFFSET {SkipCount} ROWS FETCH FIRST {RowsPerPage} ROWS ONLY ";
+                        "\t{SelectColumns} \n" +
+                        "FROM {TableName} \n" +
+                        "{WhereClause} \n" +
+                        "{OrderByClause} \n" +
+                        "OFFSET {SkipCount} ROWS FETCH FIRST {RowsPerPage} ROWS ONLY ";
                     break;
             }
         }
@@ -84,38 +84,43 @@ namespace DeltaX.Repository.Common.Table
             CountQueryFormatSql = "SELECT count(*) as Count FROM {TableName} \n{WhereClause}";
         }
 
-        public string GetTableName(ITableConfiguration table)
+        public string GetTableName(ITableConfiguration table, string tableAlias = null)
         {
-            return string.IsNullOrEmpty(table.Schema) ? table.Name : $"{table.Schema}.{table.Name}";
+            string tableName = string.IsNullOrEmpty(table.Schema) ? table.Name : $"{table.Schema}.{table.Name}";
+
+            return string.IsNullOrEmpty(tableAlias) ? tableName : $"{tableName} {tableAlias}";
         }
 
-        public string Encapsulation(string dbWord)
+        public string Encapsulation(string dbWord, string tableAlias = null)
         {
-            return string.Format(EncapsulationSql, dbWord);
+            return string.IsNullOrEmpty(tableAlias)
+                ? string.Format(EncapsulationSql, dbWord)
+                : $"{tableAlias}." + string.Format(EncapsulationSql, dbWord);
         }
 
-        public string GetWhereClausePK(ITableConfiguration table)
+        public string GetWhereClausePK(ITableConfiguration table, string tableAlias = null)
         {
             var pks = table.GetPrimaryKeysColumn();
-            return "WHERE " + string.Join(" AND ", pks.Select(c => $"{Encapsulation(c.DbColumnName)} = @{c.DtoFieldName}"));
+            return "WHERE " + string.Join(" AND ", pks.Select(c => $"{Encapsulation(c.DbColumnName, tableAlias)} = @{c.DtoFieldName}"));
         }
 
-        public string GetSelectColumns(ITableConfiguration table)
+        public string GetColumnFormated(ColumnConfiguration column, string tableAlias = null)
+        {
+            return column.DbAlias == null
+                 ? Encapsulation(column.DbColumnName, tableAlias)
+                 : $"{Encapsulation(column.DbColumnName, tableAlias)} as {Encapsulation(column.DbAlias)}";
+        }
+
+        public string GetSelectColumns(ITableConfiguration table, string tableAlias = null)
         {
             var columns = table.GetSelectColumns();
-            return string.Join("\n\t, ", columns.Select(c =>
-                c.DbAlias == null
-                ? Encapsulation(c.DbColumnName)
-                : $"{Encapsulation(c.DbColumnName)} as {Encapsulation(c.DbAlias)}"));
+            return string.Join("\n\t, ", columns.Select(c => GetColumnFormated(c, tableAlias)));
         }
 
-        public string GetSelectColumnsList(ITableConfiguration table)
+        public string GetSelectColumnsList(ITableConfiguration table, string tableAlias = null)
         {
             var columns = table.GetSelectColumnsList();
-            return string.Join("\n\t, ", columns.Select(c =>
-                c.DbAlias == null
-                ? Encapsulation(c.DbColumnName)
-                : $"{Encapsulation(c.DbColumnName)} as {Encapsulation(c.DbAlias)}"));
+            return string.Join("\n\t, ", columns.Select(c => columns.Select(c => GetColumnFormated(c, tableAlias))));
         }
 
         public string GetInsertColumns(ITableConfiguration table, IEnumerable<string> fieldsToInsert = null)
@@ -142,7 +147,7 @@ namespace DeltaX.Repository.Common.Table
             return string.Join(", ", columns.Select(c => $"@{c.DtoFieldName}"));
         }
 
-        public string GetSetColumns(ITableConfiguration table, IEnumerable<string> fieldsToSet = null)
+        public string GetSetColumns(ITableConfiguration table, IEnumerable<string> fieldsToSet = null, string tableAlias = null)
         {
             var columns = table.GetUpdateColumns();
 
@@ -151,7 +156,7 @@ namespace DeltaX.Repository.Common.Table
                 columns = table.Columns.Where(c => fieldsToSet.Contains(c.DtoFieldName) || fieldsToSet.Contains(c.DbColumnName));
             }
 
-            return string.Join("\n\t, ", columns.Select(c => $"{Encapsulation(c.DbColumnName)} = @{c.DtoFieldName}"));
+            return string.Join("\n\t, ", columns.Select(c => $"{Encapsulation(c.DbColumnName, tableAlias)} = @{c.DtoFieldName}"));
         }
 
     }

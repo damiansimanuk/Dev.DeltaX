@@ -4,7 +4,7 @@
     using DeltaX.Repository.Common.Table;
     using System;
 
-    public class ProductSpecificationDto : IEntityDto<int>, ITableDto
+    public class ProductSpecificationDto : IEntity<int>, ITableDto
     {
         public int Id { get; set; }
 

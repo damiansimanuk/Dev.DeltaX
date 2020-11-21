@@ -4,7 +4,7 @@
     using DeltaX.Repository.Common.Table;
     using System;
 
-    public class ProcessHistoryDto : IEntityDto<Guid>, ITableDto
+    public class ProcessHistoryDto : IEntity<Guid>, ITableDto
     {
         public Guid Id { get; set; }
 

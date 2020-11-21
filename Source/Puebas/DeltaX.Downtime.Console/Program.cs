@@ -2,6 +2,7 @@
 using Dapper;
 using DeltaX.Database;
 using DeltaX.Downtime.DapperRepository;
+using DeltaX.Downtime.Domain.ProcessAggregate;
 using DeltaX.Repository.DapperRepository;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging;
@@ -22,6 +23,19 @@ namespace DeltaX.Downtime.Console
 
             SqliteTypeHandler.SetSqliteTypeHandler();
 
+            int i = 1;
+            Class1.GetPropertyInfo<ProductSpecification, bool>(f => f.Code.Like("%PEPE%")); 
+            Class1.GetPropertyInfo<ProductSpecification, bool>((f) => f.Id  == i);
+            
+            Class1.GetPropertyInfo<ProductSpecification, bool>((f) => f.Id  == 1); 
+            Class1.GetPropertyInfo<ProductSpecification, bool>((f) => f.Id >= 1 && f.Id<5 ); 
+            Class1.GetPropertyInfo<ProductSpecification, bool>((f) => f.StandarDuration == 2 && f.Code == null); 
+            
+            Class1.GetPropertyInfo<ProductSpecification, bool>((f) => f.StandarDuration == 2 && f.Code == "%PEPE%"); 
+            Class1.GetPropertyInfo<ProductSpecification, bool>((f) => f.StandarDuration == 2 || f.StandarDuration > 2);
+            Class1.GetPropertyInfo<ProductSpecification, bool>((f) => f.StandarDuration == 2);
+            
+
             try
             {
                 log.Information("Configure Autofac...");
@@ -32,9 +46,9 @@ namespace DeltaX.Downtime.Console
                 builder.Register(c => c.Resolve<ILoggerFactory>().CreateLogger("")).InstancePerLifetimeScope(); 
 
                 // Database
-                builder.Register(c => new DatabaseFactory<SqliteConnection>(new[] { "Filename=Downtime.sqlite3" }))
+                builder.Register(c => new DbConnectionFactory<SqliteConnection>(new[] { "Filename=Downtime.sqlite3" }))
                     .SingleInstance();
-                builder.Register<IDbConnection>(c => c.Resolve<DatabaseFactory<SqliteConnection>>().GetConnection())
+                builder.Register<IDbConnection>(c => c.Resolve<DbConnectionFactory<SqliteConnection>>().GetConnection())
                     .InstancePerLifetimeScope();
 
                 // Downtime Module

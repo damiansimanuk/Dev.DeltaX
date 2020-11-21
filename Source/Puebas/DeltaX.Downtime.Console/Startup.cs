@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DeltaX.Downtime.DapperRepository;
 using DeltaX.Downtime.Domain.ProcessAggregate;
+using DeltaX.Utilities;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
@@ -48,6 +49,8 @@ namespace DeltaX.Downtime.Console
             var product2 = new ProductSpecification("Codigo 2");
             inserted.SetProductSpecification(product2);
             inserted.FinishProcess(DateTime.Now);
+
+            var interruptionDisabled = inserted.Copy();
 
             var updated = repository.UpdateAsync(inserted).Result;
 

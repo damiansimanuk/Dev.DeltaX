@@ -54,6 +54,9 @@
         }
       },
       "DeltaX.Repository.Common/1.0.0": {
+        "dependencies": {
+          "DeltaX.Domain.Common": "1.0.0"
+        },
         "runtime": {
           "DeltaX.Repository.Common.dll": {}
         }

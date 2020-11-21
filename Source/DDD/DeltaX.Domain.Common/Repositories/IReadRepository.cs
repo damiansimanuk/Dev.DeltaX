@@ -7,16 +7,19 @@
 
     public interface IReadRepository<TEntity> : IRepository where TEntity : class, IEntity
     {
-        Task<List<TEntity>> GetListAsync(bool includeDetails = false);
+        Task<IEnumerable<TEntity>> GetListAsync(bool includeDetails = false);
 
         Task<long> GetCountAsync();
 
-        Task<List<TEntity>> GetPagedListAsync(
+        Task<IEnumerable<TEntity>> GetPagedListAsync(
             int skipCount,
-            int maxResultCount,
+            int rowsPerPage,
             string filter,
             string sorting,
+            object param = null,
             bool includeDetails = false);
+
+        Task<TEntity> GetAsync(TEntity entity, bool includeDetails = false);
     }
 
     public interface IReadRepository<TEntity, TKey> : IReadRepository<TEntity>

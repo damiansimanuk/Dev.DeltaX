@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DeltaX.Domain.Common\DeltaX.Domain.Common.csproj" />
+  </ItemGroup>
+
 </Project>

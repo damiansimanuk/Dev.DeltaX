@@ -11,15 +11,24 @@ namespace DeltaX.Repository.Common.Table
     {
         public string Name { get; }
         public string Schema { get; }
-        public IEnumerable<ColumnConfiguration> Columns { get; }
-
-        public ColumnConfiguration GetIdentityColumn();
-
+        public string Identifier { get; }
+        public IEnumerable<ColumnConfiguration> Columns { get; } 
+        public ColumnConfiguration GetIdentityColumn(); 
         public IEnumerable<ColumnConfiguration> GetPrimaryKeysColumn();
         public IEnumerable<ColumnConfiguration> GetSelectColumns();
         public IEnumerable<ColumnConfiguration> GetSelectColumnsList();
         public IEnumerable<ColumnConfiguration> GetInsertColumns();
         public IEnumerable<ColumnConfiguration> GetUpdateColumns();
+    }
+
+    class TableConfigurationIdentifierCreator
+    {
+        private static int identifierCount = 1;
+
+        public static string GetIdentifier()
+        {
+            return $"t_{identifierCount++}";
+        }
     }
 
     public class TableConfiguration<TTable> : ITableConfiguration
@@ -28,16 +37,20 @@ namespace DeltaX.Repository.Common.Table
 
         private List<ColumnConfiguration> columns;
 
-        public TableConfiguration(string name, string schema)
+        public TableConfiguration(string name, string schema, string identifier = null)
         {
             Name = name;
             Schema = schema;
             Table = Activator.CreateInstance<TTable>();
             columns = new List<ColumnConfiguration>();
-        }
+            Identifier = identifier ?? TableConfigurationIdentifierCreator.GetIdentifier(); 
+        } 
+
+
         public TTable Table { get; private set; }
         public string Name { get; set; }
         public string Schema { get; set; }
+        public string Identifier { get; set; }
         public IEnumerable<ColumnConfiguration> Columns => columns;
 
         public void AddColumn(ColumnConfiguration config)
@@ -73,8 +86,7 @@ namespace DeltaX.Repository.Common.Table
         public void AddColumn<TProperty>(Expression<Func<TTable, TProperty>> property, Action<ColumnConfiguration> configColumn)
         {
             AddColumn(property, null, false, false, configColumn);
-        }
-                
+        }                
 
         public void SetIdentity<TProperty>(Expression<Func<TTable, TProperty>> property)
         {
@@ -86,13 +98,8 @@ namespace DeltaX.Repository.Common.Table
             var column = columns.FirstOrDefault(c => c.DtoFieldName == dtoFieldName);
             _ = column ?? throw new ArgumentException("Column 'dtoFieldName' cannot be null", nameof(property));
             column.IsIdentity = true;
-        } 
-
-        public PropertyInfo GetPropertyInfo<TProperty>(Expression<Func<TTable, TProperty>> property)
-        {
-            MemberExpression member = property?.Body as MemberExpression;
-            return member?.Member as PropertyInfo;
         }
+       
 
         public void InvalidatePk()
         {
@@ -137,6 +144,12 @@ namespace DeltaX.Repository.Common.Table
         public IEnumerable<ColumnConfiguration> GetUpdateColumns()
         { 
             return Columns.Where(c => !c.IgnoreUpdate && !c.IsIdentity && !c.IsPrimaryKey).ToArray();
+        }
+        
+        private PropertyInfo GetPropertyInfo<TProperty>(Expression<Func<TTable, TProperty>> property)
+        {
+            MemberExpression member = property?.Body as MemberExpression;
+            return member?.Member as PropertyInfo;
         }
     }
 }

@@ -4,12 +4,13 @@
     using System;
     using System.Data;
 
-    public class DatabaseFactory<TDbConnection> where TDbConnection : IDbConnection, new()
+    public class DbConnectionFactory<TDbConnection> 
+        where TDbConnection : IDbConnection, new()
     {
-        private ILogger logger;
-        private string[] connectionStrings;
+        private readonly ILogger logger;
+        private readonly string[] connectionStrings;
 
-        public DatabaseFactory(string[] connectionStrings, ILogger logger = null)
+        public DbConnectionFactory(string[] connectionStrings, ILogger logger = null)
         {
             this.connectionStrings = connectionStrings;
             this.logger = logger;
@@ -21,12 +22,12 @@
         /// <returns></returns>
         public TDbConnection GetConnection()
         {
-            Exception exception = new ArgumentNullException("ConnectionStrings List Error");
-            for (int idx = 0; idx < connectionStrings.Length; idx++)
+            Exception exception = null;
+            foreach (string conStr in connectionStrings)
             {
                 try
                 {
-                    var dbConn = Connect(connectionStrings[idx]);
+                    var dbConn = Connect(conStr);
                     if (dbConn.State.HasFlag(ConnectionState.Open))
                     {
                         return dbConn;
@@ -35,12 +36,20 @@
                     // Close if not openned!
                     dbConn.Close();
                 }
-                catch (Exception e) { exception = e; }
+                catch (Exception e)
+                {
+                    exception = e;
+                }
             }
 
-            throw exception;
+            throw exception ?? new ArgumentNullException("ConnectionStrings List Error");
         }
 
+        /// <summary>
+        /// Connect to DB with specificated connectionString
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <returns>a new DbConnection</returns>
         public TDbConnection Connect(string connectionString)
         {
             try

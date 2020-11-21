@@ -14,6 +14,7 @@
           "DeltaX.Database": "1.0.0",
           "DeltaX.Downtime.Domain": "1.0.0",
           "DeltaX.Repository.DapperRepository": "1.0.0",
+          "DeltaX.Utilities": "1.0.0",
           "Microsoft.Data.Sqlite.Core": "3.1.9"
         },
         "runtime": {
@@ -130,6 +131,9 @@
         }
       },
       "DeltaX.Repository.Common/1.0.0": {
+        "dependencies": {
+          "DeltaX.Domain.Common": "1.0.0"
+        },
         "runtime": {
           "DeltaX.Repository.Common.dll": {}
         }
@@ -142,6 +146,11 @@
         },
         "runtime": {
           "DeltaX.Repository.DapperRepository.dll": {}
+        }
+      },
+      "DeltaX.Utilities/1.0.0": {
+        "runtime": {
+          "DeltaX.Utilities.dll": {}
         }
       }
     }
@@ -257,6 +266,11 @@
       "sha512": ""
     },
     "DeltaX.Repository.DapperRepository/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DeltaX.Utilities/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

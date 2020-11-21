@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\DeltaX.Database\DeltaX.Database.csproj" />
+    <ProjectReference Include="..\..\Core\DeltaX.Utilities\DeltaX.Utilities.csproj" />
     <ProjectReference Include="..\..\DDD\DeltaX.Repository.RepositoryDapper\DeltaX.Repository.DapperRepository.csproj" />
     <ProjectReference Include="..\DeltaX.Downtime.Domain\DeltaX.Downtime.Domain.csproj" />
   </ItemGroup>

@@ -58,3 +58,5 @@ D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.Console\bin\Debug\netcorea
 D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.Console\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.Console\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
 D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.Console\obj\Debug\netcoreapp3.1\DeltaX.Downtime.Console.csproj.CoreCompileInputs.cache
+D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.Console\bin\Debug\netcoreapp3.1\DeltaX.Utilities.dll
+D:\DEV\repos\Dev.DeltaX\Source\Puebas\DeltaX.Downtime.Console\bin\Debug\netcoreapp3.1\DeltaX.Utilities.pdb

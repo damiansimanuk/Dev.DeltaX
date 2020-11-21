@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DeltaX.Repository.DapperRepository;
 using Microsoft.Extensions.Logging;
 using DeltaX.Downtime.DapperRepository.Dto;
+using DeltaX.Utilities;
 
 namespace DeltaX.Downtime.DapperRepository
 {
@@ -33,7 +34,7 @@ namespace DeltaX.Downtime.DapperRepository
             this.queryFactory = queryFactory;
             this.mapper = mapper;
             this.logger = logger;
-            this.repository = new Repository.DapperRepository.DapperRepository(unitOfWork, queryFactory);
+            this.repository = new DapperRepository<ProcessHistoryDto>(unitOfWork, queryFactory, logger);
         }
 
 
@@ -48,6 +49,12 @@ namespace DeltaX.Downtime.DapperRepository
         public Task DeleteAsync(ProcessHistory entity)
         {
             return DeleteAsync(entity.Id);
+        }
+
+
+        public Task<ProcessHistory> GetAsync(ProcessHistory entity, bool includeDetails = false)
+        { 
+            return GetAsync(entity.Id, includeDetails);
         }
 
         public async Task<ProcessHistory> GetAsync(Guid id, bool includeDetails = false)
@@ -94,6 +101,29 @@ namespace DeltaX.Downtime.DapperRepository
             return mapper.Map<ProductSpecification>(item);
         }
 
+        private async Task<InterruptionHistoryDto> UpdateInterruptionDtoAsync(InterruptionHistoryDto interruption)
+        {
+            // Get current interruption
+            var current = await GetInterruptionDtoByProcessAsync(interruption.ProcessHistoryId);
+
+            // Disable/Delete interruption
+            if (current != null)
+            {
+                var interruptionDisabled = interruption.Copy();
+                interruptionDisabled.Enable = false;
+                await repository.UpdateAsync(interruptionDisabled, new[] { "Enable" });
+            }
+
+            // Insert interruption
+            if (interruption != null  )
+            {
+                interruption = await repository.InsertAsync(interruption);
+            }
+            
+            return interruption;
+        } 
+        
+        
         private Task<InterruptionHistoryDto> GetInterruptionDtoByProcessAsync(Guid processHistoryId)
         {
             return repository.GetAsync<InterruptionHistoryDto>(
@@ -107,16 +137,16 @@ namespace DeltaX.Downtime.DapperRepository
             return mapper.Map<InterruptionHistory>(item);
         }
 
-        public async Task<List<ProcessHistory>> GetListAsync(bool includeDetails = false)
+        public async Task<IEnumerable<ProcessHistory>> GetListAsync(bool includeDetails = false)
         {
-            var items = await repository.GetListAsync<ProcessHistoryDto>();
+            var items = await repository.GetPagedListAsync<ProcessHistoryDto>();
             return mapper.Map<List<ProcessHistory>>(items);
         }
 
-        public async Task<List<ProcessHistory>> GetPagedListAsync(int skipCount, int maxResultCount,
-            string filter = null, string sorting = null, bool includeDetails = false)
+        public async Task<IEnumerable<ProcessHistory>> GetPagedListAsync(int skipCount, int maxResultCount,
+            string filter = null, string sorting = null, object param = null,  bool includeDetails = false)
         {
-            var items = await repository.GetListAsync<ProcessHistoryDto>(skipCount, maxResultCount);
+            var items = await repository.GetPagedListAsync<ProcessHistoryDto>(skipCount, maxResultCount);
             return mapper.Map<List<ProcessHistory>>(items);
         }
 
@@ -188,5 +218,6 @@ namespace DeltaX.Downtime.DapperRepository
 
             return mapper.Map<ProcessHistory>(item);
         }
+
     }
 }

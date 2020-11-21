@@ -88,7 +88,11 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\DEV\\repos\\Dev.DeltaX\\Source\\DDD\\DeltaX.Domain.Common\\DeltaX.Domain.Common.csproj": {
+                "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\DDD\\DeltaX.Domain.Common\\DeltaX.Domain.Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

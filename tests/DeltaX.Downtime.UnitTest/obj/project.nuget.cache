@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "MF2Ee4TJhVS24KAXRqDYnN58q5PGN0eU/ZAsyPNem+Oqc+wioEhpZZ2WOWTePVd3a31JWeHZTJ/Q4tV+atp3Fw==",
+  "dgSpecHash": "qrq1UFx9eTai7PUcgs1n73V8FF9bIJekLMWmWDIBUawivZwmZSXRPMN9PWWiYjGQmurya2XzjJUisL9lG0RtTw==",
   "success": true,
   "projectFilePath": "D:\\DEV\\repos\\Dev.DeltaX\\tests\\DeltaX.Downtime.UnitTest\\DeltaX.Downtime.UnitTest.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\sima\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
     "C:\\Users\\sima\\.nuget\\packages\\microsoft.codecoverage\\16.4.0\\microsoft.codecoverage.16.4.0.nupkg.sha512",
     "C:\\Users\\sima\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\sima\\.nuget\\packages\\microsoft.dotnet.internalabstractions\\1.0.0\\microsoft.dotnet.internalabstractions.1.0.0.nupkg.sha512",
+    "C:\\Users\\sima\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.9\\microsoft.extensions.logging.abstractions.3.1.9.nupkg.sha512",
     "C:\\Users\\sima\\.nuget\\packages\\microsoft.net.test.sdk\\16.4.0\\microsoft.net.test.sdk.16.4.0.nupkg.sha512",
     "C:\\Users\\sima\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\sima\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

@@ -4,7 +4,7 @@
     using DeltaX.Repository.Common.Table;
     using System; 
 
-    public class InterruptionHistoryDto : IEntityDto<int>, ITableDto
+    public class InterruptionHistoryDto : IEntity<int>, ITableDto
     {
         public int Id { get; set; }
           

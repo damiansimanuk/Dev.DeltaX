@@ -15,12 +15,18 @@ namespace DeltaX.Repository.Common.Table
         {
             tablesConfig = new Dictionary<Type, ITableConfiguration>();
             DialectQuery = dialectQuery;
+            instance = this;
         }
 
-        public TableQueryFactory(Dialect dialect)
+        public TableQueryFactory(Dialect dialect) : this(new DialectQuery(dialect))
         {
-            tablesConfig = new Dictionary<Type, ITableConfiguration>();
-            DialectQuery = new DialectQuery(dialect);
+        }
+
+        private static TableQueryFactory instance;
+
+        public static TableQueryFactory GetInstance()
+        {
+            return instance ??= new TableQueryFactory(Dialect.SQLite);
         }
 
         public DialectQuery DialectQuery { get; private set; }
@@ -28,20 +34,36 @@ namespace DeltaX.Repository.Common.Table
         public ITableConfiguration GetTable<TTable>()
             where TTable : ITableDto
         {
-            return tablesConfig.GetValueOrDefault(typeof(TTable))
-                 ?? throw new ArgumentException($"Table type '{typeof(TTable).Name}' is not configurated!", nameof(TTable));
+            return GetTable(typeof(TTable));
+        }
+
+        public ITableConfiguration GetTable(Type type) 
+        {
+            return tablesConfig.GetValueOrDefault(type)
+                 ?? throw new ArgumentException($"Table type '{type.Name}' is not configurated!", type.Name);
+        }
+
+        public bool IsConfiguredTable(Type type)
+        {
+            return tablesConfig.GetValueOrDefault(type) != default;
         }
 
         public void ConfigureTable<TTable>(string tableName, Action<TableConfiguration<TTable>> configTable)
             where TTable : ITableDto
         {
-            ConfigureTable(null, tableName, configTable);
+            ConfigureTable(null, tableName, null, configTable);
         }
 
         public void ConfigureTable<TTable>(string schema, string tableName, Action<TableConfiguration<TTable>> configTable)
             where TTable : ITableDto
         {
-            var table = new TableConfiguration<TTable>(tableName, schema);
+            ConfigureTable(schema, tableName, null, configTable);
+        }
+
+        public void ConfigureTable<TTable>(string schema, string tableName, string identifier, Action<TableConfiguration<TTable>> configTable)
+           where TTable : ITableDto
+        {
+            var table = new TableConfiguration<TTable>(tableName, schema, identifier);
             configTable.Invoke(table);
             AddTable(table);
         }
@@ -60,8 +82,8 @@ namespace DeltaX.Repository.Common.Table
             var table = GetTable<TTable>();
 
             var query = DialectQuery.PagedListQueryFormatSql;
-            query = query.Replace("{SelectColumns}", DialectQuery.GetSelectColumnsList(table));
-            query = query.Replace("{TableName}", DialectQuery.GetTableName(table));
+            query = query.Replace("{SelectColumns}", DialectQuery.GetSelectColumnsList(table, table.Identifier));
+            query = query.Replace("{TableName}", DialectQuery.GetTableName(table, table.Identifier));
             query = query.Replace("{WhereClause}", whereClause);
             query = query.Replace("{OrderByClause}", orderByClause);
             query = query.Replace("{SkipCount}", skipCount.ToString());
@@ -77,12 +99,12 @@ namespace DeltaX.Repository.Common.Table
 
             if (string.IsNullOrEmpty(whereClause))
             {
-                whereClause = DialectQuery.GetWhereClausePK(table);
+                whereClause = DialectQuery.GetWhereClausePK(table, table.Identifier);
             }
 
             var query = DialectQuery.SingleQueryFormatSql;
-            query = query.Replace("{SelectColumns}", DialectQuery.GetSelectColumns(table));
-            query = query.Replace("{TableName}", DialectQuery.GetTableName(table));
+            query = query.Replace("{SelectColumns}", DialectQuery.GetSelectColumns(table, table.Identifier));
+            query = query.Replace("{TableName}", DialectQuery.GetTableName(table, table.Identifier));
             query = query.Replace("{WhereClause}", whereClause);
             return query;
         }
