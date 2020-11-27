@@ -1,8 +1,0 @@
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.Utilities\bin\Debug\netcoreapp3.1\DeltaX.Utilities.deps.json
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.Utilities\bin\Debug\netcoreapp3.1\DeltaX.Utilities.dll
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.Utilities\bin\Debug\netcoreapp3.1\DeltaX.Utilities.pdb
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.Utilities\obj\Debug\netcoreapp3.1\DeltaX.Utilities.AssemblyInfoInputs.cache
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.Utilities\obj\Debug\netcoreapp3.1\DeltaX.Utilities.AssemblyInfo.cs
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.Utilities\obj\Debug\netcoreapp3.1\DeltaX.Utilities.csproj.CoreCompileInputs.cache
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.Utilities\obj\Debug\netcoreapp3.1\DeltaX.Utilities.dll
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.Utilities\obj\Debug\netcoreapp3.1\DeltaX.Utilities.pdb

@@ -86,11 +86,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\Deltax.Downtime.Domain\\Deltax.Downtime.Domain.csproj",
-      "projectName": "Deltax.Downtime.Domain",
-      "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\Deltax.Downtime.Domain\\Deltax.Downtime.Domain.csproj",
+      "projectUniqueName": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Domain\\DeltaX.Downtime.Domain.csproj",
+      "projectName": "DeltaX.Downtime.Domain",
+      "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Domain\\DeltaX.Downtime.Domain.csproj",
       "packagesPath": "C:\\Users\\sima\\.nuget\\packages\\",
-      "outputPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\Deltax.Downtime.Domain\\obj\\",
+      "outputPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\sima\\AppData\\Roaming\\NuGet\\NuGet.Config",

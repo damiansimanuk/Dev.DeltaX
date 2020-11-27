@@ -572,6 +572,19 @@
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
         }
       },
+      "DeltaX.CacheItems/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.9"
+        },
+        "compile": {
+          "bin/placeholder/DeltaX.CacheItems.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DeltaX.CacheItems.dll": {}
+        }
+      },
       "DeltaX.Database/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -597,6 +610,22 @@
         },
         "runtime": {
           "bin/placeholder/DeltaX.Domain.Common.dll": {}
+        }
+      },
+      "DeltaX.Downtime.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Autofac": "6.0.0",
+          "DeltaX.CacheItems": "1.0.0",
+          "DeltaX.Domain.Common": "1.0.0",
+          "DeltaX.Downtime.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DeltaX.Downtime.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DeltaX.Downtime.Application.dll": {}
         }
       },
       "DeltaX.Downtime.DapperRepository/1.0.0": {
@@ -2213,6 +2242,11 @@
         "system.threading.tasks.nuspec"
       ]
     },
+    "DeltaX.CacheItems/1.0.0": {
+      "type": "project",
+      "path": "../../Core/DeltaX.CacheItems/DeltaX.CacheItems.csproj",
+      "msbuildProject": "../../Core/DeltaX.CacheItems/DeltaX.CacheItems.csproj"
+    },
     "DeltaX.Database/1.0.0": {
       "type": "project",
       "path": "../../Core/DeltaX.Database/DeltaX.Database.csproj",
@@ -2222,6 +2256,11 @@
       "type": "project",
       "path": "../../DDD/DeltaX.Domain.Common/DeltaX.Domain.Common.csproj",
       "msbuildProject": "../../DDD/DeltaX.Domain.Common/DeltaX.Domain.Common.csproj"
+    },
+    "DeltaX.Downtime.Application/1.0.0": {
+      "type": "project",
+      "path": "../DeltaX.Downtime.Application/DeltaX.Downtime.Application.csproj",
+      "msbuildProject": "../DeltaX.Downtime.Application/DeltaX.Downtime.Application.csproj"
     },
     "DeltaX.Downtime.DapperRepository/1.0.0": {
       "type": "project",
@@ -2253,6 +2292,7 @@
     ".NETCoreApp,Version=v3.1": [
       "Autofac >= 6.0.0",
       "DeltaX.Domain.Common >= 1.0.0",
+      "DeltaX.Downtime.Application >= 1.0.0",
       "DeltaX.Downtime.DapperRepository >= 1.0.0",
       "DeltaX.Repository.Common >= 1.0.0",
       "Microsoft.Data.Sqlite >= 3.1.9",
@@ -2295,6 +2335,9 @@
             },
             "D:\\DEV\\repos\\Dev.DeltaX\\Source\\DDD\\DeltaX.Repository.Common\\DeltaX.Repository.Common.csproj": {
               "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\DDD\\DeltaX.Repository.Common\\DeltaX.Repository.Common.csproj"
+            },
+            "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Application\\DeltaX.Downtime.Application.csproj": {
+              "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Application\\DeltaX.Downtime.Application.csproj"
             },
             "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.DapperRepository\\DeltaX.Downtime.DapperRepository.csproj": {
               "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.DapperRepository\\DeltaX.Downtime.DapperRepository.csproj"

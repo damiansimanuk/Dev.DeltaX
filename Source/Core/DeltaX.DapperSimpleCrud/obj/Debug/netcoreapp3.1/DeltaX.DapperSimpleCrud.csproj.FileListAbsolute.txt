@@ -1,9 +1,0 @@
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.DapperSimpleCrud\bin\Debug\netcoreapp3.1\DeltaX.DapperSimpleCrud.deps.json
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.DapperSimpleCrud\bin\Debug\netcoreapp3.1\DeltaX.DapperSimpleCrud.dll
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.DapperSimpleCrud\obj\Debug\netcoreapp3.1\DeltaX.DapperSimpleCrud.csprojAssemblyReference.cache
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.DapperSimpleCrud\obj\Debug\netcoreapp3.1\DeltaX.DapperSimpleCrud.AssemblyInfoInputs.cache
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.DapperSimpleCrud\obj\Debug\netcoreapp3.1\DeltaX.DapperSimpleCrud.AssemblyInfo.cs
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.DapperSimpleCrud\bin\Debug\netcoreapp3.1\DeltaX.DapperSimpleCrud.pdb
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.DapperSimpleCrud\obj\Debug\netcoreapp3.1\DeltaX.DapperSimpleCrud.csproj.CoreCompileInputs.cache
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.DapperSimpleCrud\obj\Debug\netcoreapp3.1\DeltaX.DapperSimpleCrud.dll
-D:\DEV\repos\Dev.DeltaX\Source\Core\DeltaX.DapperSimpleCrud\obj\Debug\netcoreapp3.1\DeltaX.DapperSimpleCrud.pdb

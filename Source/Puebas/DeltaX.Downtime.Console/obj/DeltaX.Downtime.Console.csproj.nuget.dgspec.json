@@ -4,6 +4,64 @@
     "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Console\\DeltaX.Downtime.Console.csproj": {}
   },
   "projects": {
+    "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Core\\DeltaX.CacheItems\\DeltaX.CacheItems.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Core\\DeltaX.CacheItems\\DeltaX.CacheItems.csproj",
+        "projectName": "DeltaX.CacheItems",
+        "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Core\\DeltaX.CacheItems\\DeltaX.CacheItems.csproj",
+        "packagesPath": "C:\\Users\\sima\\.nuget\\packages\\",
+        "outputPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Core\\DeltaX.CacheItems\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\sima\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Core\\DeltaX.Database\\DeltaX.Database.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -297,6 +355,74 @@
         }
       }
     },
+    "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Application\\DeltaX.Downtime.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Application\\DeltaX.Downtime.Application.csproj",
+        "projectName": "DeltaX.Downtime.Application",
+        "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Application\\DeltaX.Downtime.Application.csproj",
+        "packagesPath": "C:\\Users\\sima\\.nuget\\packages\\",
+        "outputPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\sima\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Core\\DeltaX.CacheItems\\DeltaX.CacheItems.csproj": {
+                "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Core\\DeltaX.CacheItems\\DeltaX.CacheItems.csproj"
+              },
+              "D:\\DEV\\repos\\Dev.DeltaX\\Source\\DDD\\DeltaX.Domain.Common\\DeltaX.Domain.Common.csproj": {
+                "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\DDD\\DeltaX.Domain.Common\\DeltaX.Domain.Common.csproj"
+              },
+              "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Domain\\DeltaX.Downtime.Domain.csproj": {
+                "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Domain\\DeltaX.Downtime.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Autofac": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Console\\DeltaX.Downtime.Console.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -325,6 +451,9 @@
               },
               "D:\\DEV\\repos\\Dev.DeltaX\\Source\\DDD\\DeltaX.Repository.Common\\DeltaX.Repository.Common.csproj": {
                 "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\DDD\\DeltaX.Repository.Common\\DeltaX.Repository.Common.csproj"
+              },
+              "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Application\\DeltaX.Downtime.Application.csproj": {
+                "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.Application\\DeltaX.Downtime.Application.csproj"
               },
               "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.DapperRepository\\DeltaX.Downtime.DapperRepository.csproj": {
                 "projectPath": "D:\\DEV\\repos\\Dev.DeltaX\\Source\\Puebas\\DeltaX.Downtime.DapperRepository\\DeltaX.Downtime.DapperRepository.csproj"

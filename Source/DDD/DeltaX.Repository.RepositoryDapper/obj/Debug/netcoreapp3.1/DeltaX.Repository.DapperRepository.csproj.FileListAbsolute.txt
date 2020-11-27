@@ -12,17 +12,3 @@ D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\bin\Debug\netcoreapp
 D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.csproj.CoreCompileInputs.cache
 D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.dll
 D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.Dapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.pdb
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\bin\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.deps.json
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\bin\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.dll
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\bin\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.pdb
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\bin\Debug\netcoreapp3.1\DeltaX.Domain.Common.dll
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\bin\Debug\netcoreapp3.1\DeltaX.Repository.Common.dll
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\bin\Debug\netcoreapp3.1\DeltaX.Domain.Common.pdb
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\bin\Debug\netcoreapp3.1\DeltaX.Repository.Common.pdb
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.csprojAssemblyReference.cache
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.AssemblyInfoInputs.cache
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.AssemblyInfo.cs
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.csproj.CoreCompileInputs.cache
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.csproj.CopyComplete
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.dll
-D:\DEV\repos\Dev.DeltaX\Source\DDD\DeltaX.Repository.RepositoryDapper\obj\Debug\netcoreapp3.1\DeltaX.Repository.DapperRepository.pdb
