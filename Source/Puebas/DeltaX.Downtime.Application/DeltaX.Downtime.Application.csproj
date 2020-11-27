@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\DeltaX.CacheItems\DeltaX.CacheItems.csproj" />
+    <ProjectReference Include="..\..\DDD\DeltaX.Domain.Common\DeltaX.Domain.Common.csproj" />
+    <ProjectReference Include="..\DeltaX.Downtime.Domain\DeltaX.Downtime.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

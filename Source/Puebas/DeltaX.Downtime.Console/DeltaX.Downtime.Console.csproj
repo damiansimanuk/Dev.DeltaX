@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\DDD\DeltaX.Domain.Common\DeltaX.Domain.Common.csproj" />
     <ProjectReference Include="..\..\DDD\DeltaX.Repository.Common\DeltaX.Repository.Common.csproj" />
+    <ProjectReference Include="..\DeltaX.Downtime.Application\DeltaX.Downtime.Application.csproj" />
     <ProjectReference Include="..\DeltaX.Downtime.DapperRepository\DeltaX.Downtime.DapperRepository.csproj" />
   </ItemGroup>
 

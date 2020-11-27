@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DeltaX.Downtime.DapperRepository;
+using DeltaX.Downtime.Domain;
 using DeltaX.Downtime.Domain.ProcessAggregate;
 using DeltaX.Utilities;
 using Microsoft.Extensions.Logging;
@@ -10,11 +11,11 @@ namespace DeltaX.Downtime.Console
 {
     class Startup  
     {
-        DowntimeRepository repository;
+        IDowntimeRepository repository;
         DowntimeRepositoryMapper mapper;
         ILogger logger;
 
-        public Startup(DowntimeRepository repository, DowntimeRepositoryMapper mapper, ILogger<Startup> logger)
+        public Startup(IDowntimeRepository repository, DowntimeRepositoryMapper mapper, ILogger<Startup> logger)
         {
             this.repository = repository;
             this.mapper = mapper;
@@ -29,6 +30,8 @@ namespace DeltaX.Downtime.Console
         {  
             try
             {
+
+
                 var id = PruebaInsertAndUpdate();
                 PruebaGetUpdate();
             }

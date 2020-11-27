@@ -35,7 +35,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeltaX.Downtime.Console", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeltaX.Utilities", "Source\Core\DeltaX.Utilities\DeltaX.Utilities.csproj", "{923072E6-8061-48A7-A477-9BEA618E7D0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeltaX.LinqExpression", "Source\Puebas\DeltaX.LinqExpression\DeltaX.LinqExpression.csproj", "{501E3C92-7AE3-4481-B186-F902DC0BDD34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeltaX.LinqExpression", "Source\Puebas\DeltaX.LinqExpression\DeltaX.LinqExpression.csproj", "{501E3C92-7AE3-4481-B186-F902DC0BDD34}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeltaX.DeltaTransactionTest", "Source\Puebas\DeltaX.DeltaTransactionTest\DeltaX.DeltaTransactionTest.csproj", "{553467CB-6566-417E-B7FC-2DC21CD6B6BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeltaX.CacheItems", "Source\Core\DeltaX.CacheItems\DeltaX.CacheItems.csproj", "{9DEA4D2E-F099-4AD3-867E-E597EB4D3941}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeltaX.Downtime.Application", "Source\Puebas\DeltaX.Downtime.Application\DeltaX.Downtime.Application.csproj", "{E71C9932-B8AC-4B09-BE7B-4FDFC8047A46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +97,18 @@ Global
 		{501E3C92-7AE3-4481-B186-F902DC0BDD34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{501E3C92-7AE3-4481-B186-F902DC0BDD34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{501E3C92-7AE3-4481-B186-F902DC0BDD34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{553467CB-6566-417E-B7FC-2DC21CD6B6BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{553467CB-6566-417E-B7FC-2DC21CD6B6BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{553467CB-6566-417E-B7FC-2DC21CD6B6BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{553467CB-6566-417E-B7FC-2DC21CD6B6BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DEA4D2E-F099-4AD3-867E-E597EB4D3941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DEA4D2E-F099-4AD3-867E-E597EB4D3941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DEA4D2E-F099-4AD3-867E-E597EB4D3941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DEA4D2E-F099-4AD3-867E-E597EB4D3941}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E71C9932-B8AC-4B09-BE7B-4FDFC8047A46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E71C9932-B8AC-4B09-BE7B-4FDFC8047A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E71C9932-B8AC-4B09-BE7B-4FDFC8047A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E71C9932-B8AC-4B09-BE7B-4FDFC8047A46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +130,9 @@ Global
 		{1EF7CC81-E936-4E3A-9F32-B25B0F57BB6B} = {0E6BD726-7D46-42AA-A709-3E6FC4CEDEB1}
 		{923072E6-8061-48A7-A477-9BEA618E7D0F} = {A4A13186-E1C5-401A-8474-96408AE3ADEF}
 		{501E3C92-7AE3-4481-B186-F902DC0BDD34} = {0E6BD726-7D46-42AA-A709-3E6FC4CEDEB1}
+		{553467CB-6566-417E-B7FC-2DC21CD6B6BD} = {0E6BD726-7D46-42AA-A709-3E6FC4CEDEB1}
+		{9DEA4D2E-F099-4AD3-867E-E597EB4D3941} = {A4A13186-E1C5-401A-8474-96408AE3ADEF}
+		{E71C9932-B8AC-4B09-BE7B-4FDFC8047A46} = {0E6BD726-7D46-42AA-A709-3E6FC4CEDEB1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8BCEA276-9D1F-494D-AA68-0C74100DE028}

@@ -1,9 +1,10 @@
 ﻿using Autofac;
 using Dapper;
 using DeltaX.Database;
+using DeltaX.Downtime.Application;
 using DeltaX.Downtime.DapperRepository;
 using DeltaX.Downtime.Domain.ProcessAggregate;
-using DeltaX.Repository.DapperRepository;
+using DeltaX.Repository.DapperRepository; 
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -43,7 +44,8 @@ namespace DeltaX.Downtime.Console
                 // Logger
                 builder.RegisterInstance(new LoggerFactory().AddSerilog()).As<ILoggerFactory>();
                 builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).SingleInstance();
-                builder.Register(c => c.Resolve<ILoggerFactory>().CreateLogger("")).InstancePerLifetimeScope(); 
+                builder.Register(c => c.Resolve<ILoggerFactory>().CreateLogger(""))
+                    .As<Microsoft.Extensions.Logging.ILogger>().InstancePerLifetimeScope(); 
 
                 // Database
                 builder.Register(c => new DbConnectionFactory<SqliteConnection>(new[] { "Filename=Downtime.sqlite3" }))
@@ -51,8 +53,11 @@ namespace DeltaX.Downtime.Console
                 builder.Register<IDbConnection>(c => c.Resolve<DbConnectionFactory<SqliteConnection>>().GetConnection())
                     .InstancePerLifetimeScope();
 
-                // Downtime Module
+                // Downtime Repository Module
                 builder.RegisterModule<DowntimeRepositoryModule>();
+                
+                // Downtime Application Module
+                builder.RegisterModule<DowntimeApplicationModule>();
 
                 // Startup
                 builder.RegisterType<Startup>().SingleInstance();
@@ -60,8 +65,15 @@ namespace DeltaX.Downtime.Console
                 log.Information("Start...");
                 var container = builder.Build();
 
+                // using (var scope = container.BeginLifetimeScope())
+                {
+                    var applicationService = container.Resolve<DowntimeApplicationService>();
+                    applicationService.PruebaInsertAndUpdate();
+                }
+
                 var startup = container.Resolve<Startup>();
-                startup.Start();
+                // startup.Start();  
+                GC.SuppressFinalize(builder);
             }
             catch (Exception e)
             {

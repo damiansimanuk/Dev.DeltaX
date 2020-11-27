@@ -12,12 +12,8 @@ using DeltaX.Utilities;
 
 namespace DeltaX.Downtime.DapperRepository
 {
-    public class DowntimeRepository :
-        IDowntimeRepository,
-        IBasicRepository<ProcessHistory, Guid>
+    public class DowntimeRepository : IDowntimeRepository
     {
-
-        private DowntimeUnitOfWork unitOfWork;
         private DowntimeTableQueryFactory queryFactory;
         private DowntimeRepositoryMapper mapper;
         private ILogger logger;
@@ -25,12 +21,12 @@ namespace DeltaX.Downtime.DapperRepository
 
 
         public DowntimeRepository(
-            DowntimeUnitOfWork unitOfWork,
+            IUnitOfWork unitOfWork,
             DowntimeTableQueryFactory queryFactory,
             DowntimeRepositoryMapper mapper,
             ILogger<DowntimeRepository> logger)
         {
-            this.unitOfWork = unitOfWork;
+            this.UnitOfWork = unitOfWork;
             this.queryFactory = queryFactory;
             this.mapper = mapper;
             this.logger = logger;
@@ -39,7 +35,7 @@ namespace DeltaX.Downtime.DapperRepository
 
 
 
-        public IUnitOfWork UnitOfWork => unitOfWork;
+        public IUnitOfWork UnitOfWork { get; }
 
         public Task DeleteAsync(Guid id)
         {
