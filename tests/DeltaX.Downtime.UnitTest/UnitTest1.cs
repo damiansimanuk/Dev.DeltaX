@@ -1,5 +1,6 @@
-using DeltaX.Downtime.Domain.ProcessAggregate; 
-using DeltaX.Downtime.Repository.Mappers;
+using DeltaX.Downtime.DapperRepository;
+using DeltaX.Downtime.DapperRepository.Dto;
+using DeltaX.Downtime.Domain.ProcessAggregate;
 using DeltaX.Repository.Common.Table;
 using NUnit.Framework;
 using System;
@@ -62,11 +63,9 @@ namespace DeltaX.Downtime.UnitTest
         public void Test_object_mapper()
         {
             var processHistoryDto = Activator.CreateInstance<ProcessHistoryDto>();
-            var t = processHistoryDto.GetType();
-            var c = processHistoryDto.GetColumns();
+            var t = processHistoryDto.GetType(); 
 
-            ProcessHistoryDto processHistoryDto2 = default;
-            var c2 = processHistoryDto2.GetColumns();
+            ProcessHistoryDto processHistoryDto2 = default; 
         }
 
         [Test]

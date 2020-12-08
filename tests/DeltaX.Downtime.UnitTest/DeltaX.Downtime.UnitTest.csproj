@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Source\DDD\DeltaX.Repository.Common\DeltaX.Repository.Common.csproj" />
+    <ProjectReference Include="..\..\Source\Puebas\DeltaX.Downtime.DapperRepository\DeltaX.Downtime.DapperRepository.csproj" />
   </ItemGroup>
 
 </Project>

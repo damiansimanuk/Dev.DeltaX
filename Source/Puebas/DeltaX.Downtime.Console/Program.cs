@@ -65,10 +65,12 @@ namespace DeltaX.Downtime.Console
                 log.Information("Start...");
                 var container = builder.Build();
 
-                // using (var scope = container.BeginLifetimeScope())
+                 using (var scope = container.BeginLifetimeScope())
                 {
                     var applicationService = container.Resolve<DowntimeApplicationService>();
                     applicationService.PruebaInsertAndUpdate();
+
+                    scope.Dispose();
                 }
 
                 var startup = container.Resolve<Startup>();
