@@ -26,12 +26,15 @@ namespace DeltaX.ApiRestLongPollingTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(services =>
+            services.AddSingleton<WeatherCacheRepository>(services =>
             {
                 var logger = services.GetService<ILogger<WeatherRepository>>();
                 return new WeatherCacheRepository(logger, TimeSpan.FromHours(5), 1000);
             });
              
+            services.AddSingleton<IWeatherCacheRepository>(s => s.GetService<WeatherCacheRepository>());
+            services.AddSingleton<IWeatherRepository>(s => s.GetService<WeatherCacheRepository>());
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

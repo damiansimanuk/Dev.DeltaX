@@ -9,7 +9,7 @@
     using DynamicData;
     using Microsoft.Extensions.Logging;
 
-    public class WeatherCacheRepository : WeatherRepository, ICacheRepository, IWeatherRepository
+    public class WeatherCacheRepository : WeatherRepository, IWeatherCacheRepository, IWeatherRepository
     { 
         private SourceCache<WeatherForecast, Guid> sourceCache;
         private readonly ILogger<WeatherRepository> logger;

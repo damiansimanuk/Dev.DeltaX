@@ -15,13 +15,18 @@ namespace DeltaX.ApiRestLongPollingTest.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly WeatherCacheRepository repository;
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IWeatherCacheRepository cacheRepository;
+        private readonly IWeatherRepository repository;
+        private readonly ILogger<WeatherForecastController> logger;
 
-        public WeatherForecastController(WeatherCacheRepository repository, ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(
+            IWeatherRepository repository, 
+            IWeatherCacheRepository cacheRepository, 
+            ILogger<WeatherForecastController> logger)
         {
             this.repository = repository;
-            _logger = logger;
+            this.cacheRepository = cacheRepository;
+            this.logger = logger;
         }
 
         [HttpGet("Items")]
@@ -77,7 +82,7 @@ namespace DeltaX.ApiRestLongPollingTest.Controllers
         { 
             var since = getSince.Since ?? new DateTimeOffset(DateTime.Now); 
 
-            var res = await repository.SharedCache.Connect()
+            var res = await cacheRepository.SharedCache.Connect()
                 .Filter(i => i.Updated > since)
                 .GetItemsAsync(
                     TimeSpan.FromSeconds(getSince.Timeout),

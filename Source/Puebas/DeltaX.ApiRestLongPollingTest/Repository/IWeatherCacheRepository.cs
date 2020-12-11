@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DeltaX.ApiRestLongPollingTest.Repository
 {
-    public interface ICacheRepository
+    public interface IWeatherCacheRepository
     {
         IObservableCache<DataTracker<WeatherForecast>, Guid> SharedCache { get; } 
     }
