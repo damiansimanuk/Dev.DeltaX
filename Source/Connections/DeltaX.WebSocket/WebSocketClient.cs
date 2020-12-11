@@ -1,57 +1,68 @@
-﻿namespace DeltaX.Connections
+﻿using System;
+
+
+namespace DeltaX.Connections.WebSocket
 {
     using DeltaX.BaseConfiguration;
-    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Logging.Abstractions;
-    using System;
+    using System.Collections.Generic;
+    using System.Net.WebSockets;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using uPLibrary.Networking.M2Mqtt;
 
-    public class MqttClientHelper
+    class WebSocketClient
     {
+        ClientWebSocket client;
         ILogger logger;
         Task reconnectTask;
-         
-
         ManualResetEvent isConnectedEvent;
         ManualResetEvent isDisconnectedEvent;
 
+        public WebSocketClient(Uri uri, ClientWebSocket client = null, ILogger logger = null)
+        {
+            this.Uri = uri ?? throw new ArgumentNullException(nameof(uri));
+            this.client = client ?? new ClientWebSocket();
+            this.logger = logger ?? LoggerConfig.DefaultLogger;
+
+            this.IsRunning = false;
+            this.isConnectedEvent = new ManualResetEvent(false);
+            this.isDisconnectedEvent = new ManualResetEvent(true);
+            this.WebSocket = new WebSocketHandler(this.client);
+            this.WebSocket.OnClose += WebSocket_OnClose;
+        }
+
         public event EventHandler<bool> OnConnectionChange;
 
-        public MqttClient Client { get; private set; }
+        private void WebSocket_OnClose(object sender, bool e)
+        {
+            isConnectedEvent.Reset();
+            isDisconnectedEvent.Set();
+            logger.LogInformation($"WebSocket_OnClose uri:{Uri} Connect Closed!");
+            OnConnectionChange?.Invoke(this, IsConnected);
+        }
+
+        public bool IsRunning { get; private set; }
+
+        public TimeSpan ReconnectDelay { get; set; }
 
         public bool IsConnected
         {
             get
             {
                 return isConnectedEvent.WaitOne(0)
-                    && Client?.IsConnected == true;
+                    && client.State == WebSocketState.Open;
             }
         }
 
-        public MqttConfiguration Config { get; set; }
-        public bool IsRunning { get; set; }
+        public WebSocketHandler WebSocket { get; private set; }
 
-        public MqttClientHelper(IConfiguration configuration, ILogger logger = null)
-            : this(new MqttConfiguration(configuration), null, logger)
-        {
-        }
-
-        public MqttClientHelper(MqttConfiguration config, MqttClient client = null, ILogger logger = null)
-        {
-            this.Config = config;
-            this.logger = logger ?? LoggerConfig.DefaultLogger;
-            isConnectedEvent = new ManualResetEvent(false);
-            isDisconnectedEvent = new ManualResetEvent(true);
-            this.Client = client ?? new MqttClient(Config.Host, Config.Port, Config.Secure, null, null, MqttSslProtocols.None);
-        }
-
+        public Uri Uri { get; set; }
 
         private async Task DoConnect(CancellationToken cancellationToken)
         {
             Type prevException = null;
+            IsRunning = true;
             isConnectedEvent.Reset();
             isDisconnectedEvent.Set();
 
@@ -59,22 +70,16 @@
             {
                 try
                 {
-                    logger.LogDebug($"MqttClientHelper Connecting with ClientId:{Config.ClientId}");
-                    if (string.IsNullOrEmpty(Config.Username))
-                    {
-                        Client.Connect(Config.ClientId);
-                    }
-                    else
-                    {
-                        Client.Connect(Config.ClientId, Config.Username, Config.Password);
-                    }
+                    logger.LogDebug($"WebSocketClient Connecting with uri:{Uri}");
 
-                    logger.LogInformation($"MqttClientHelper Connected ClientId:{Config.ClientId}");
+                    await client.ConnectAsync(Uri, cancellationToken);
 
-                    prevException = null; 
+                    logger.LogInformation($"WebSocketClient Connected uri:{Uri}");
+
+                    prevException = null;
                     isConnectedEvent.Set();
                     isDisconnectedEvent.Reset();
-                    
+
                     OnConnectionChange?.Invoke(this, IsConnected);
 
                     // block while is connected
@@ -90,11 +95,11 @@
                     if (e.GetType() != prevException)
                     {
                         prevException = e.GetType();
-                        logger.LogError(e, "MqttClientHelper Connect Error");
-                        logger.LogWarning($"MqttClientHelper ClientId:{Config.ClientId} Connect Failed, retry on {Config.ReconnectDealy / 1000} seconds");
+                        logger.LogError(e, "WebSocketClient Connect Error");
+                        logger.LogInformation($"WebSocketClient uri:{Uri} Connect Failed, retry on {ReconnectDelay}.");
                     }
 
-                    await Task.Delay(Config.ReconnectDealy, cancellationToken);
+                    await Task.Delay(ReconnectDelay, cancellationToken);
                 }
                 finally
                 {
@@ -102,15 +107,8 @@
                     isDisconnectedEvent.Set();
                 }
             }
-              
-            logger.LogInformation($"MqttClientHelper ClientId:{Config.ClientId} Connection Closed!");
-            OnConnectionChange?.Invoke(this, IsConnected);
-        }
 
-        private void OnConnectionClosed(object sender, EventArgs e)
-        {
-            isDisconnectedEvent.Set();
-            logger.LogInformation($"MqttClientHelper ClientId:{Config.ClientId} Connect Closed!");
+            logger.LogInformation($"WebSocketClient uri:{Uri} Connection Closed!");
             OnConnectionChange?.Invoke(this, IsConnected);
         }
 
@@ -128,6 +126,11 @@
                 return reconnectTask;
             }
 
+            if (WebSocket == null)
+            {
+                throw new InvalidOperationException("The object is Disposed!");
+            }
+
             IsRunning = true;
             reconnectTask = Task.Run(() => DoConnect(cancellationToken ?? CancellationToken.None));
             return reconnectTask;
@@ -135,16 +138,17 @@
 
         public void Disconnect()
         {
-            Client.ConnectionClosed -= OnConnectionClosed;
+            WebSocket.OnClose -= WebSocket_OnClose;
             IsRunning = false;
-            Client?.Disconnect();
             isConnectedEvent.Reset();
             isDisconnectedEvent.Set();
+
+            WebSocket?.Close();
+            WebSocket = null;
+            client = null;
 
             reconnectTask?.Wait(5000);
             reconnectTask = null;
         }
     }
-
-
 }

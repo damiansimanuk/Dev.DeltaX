@@ -6,7 +6,7 @@
     using System.Net.Http;
     using System.Threading.Tasks;
 
-    public class JsonRcpHttpConnectionClient : IRpcConnection
+    public class JsonRcpHttpClientConnection : IRpcConnection
     {
         public event EventHandler<IMessage> OnReceive;
         public event EventHandler<bool> OnConnectionChange;
@@ -14,7 +14,7 @@
         private string prefix;
         private IEnumerable<string> registeredMethods;
 
-        public JsonRcpHttpConnectionClient(HttpClient httpClient = null, string prefix = null)
+        public JsonRcpHttpClientConnection(HttpClient httpClient = null, string prefix = null)
         { 
 
             this.httpClient = httpClient ?? new HttpClient();

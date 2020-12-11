@@ -10,7 +10,7 @@
     public class Listener
     {
         private ILogger logger;
-        private AutoResetEvent isFinished;
+        private ManualResetEvent isFinished;
 
         public delegate Task OnRequestEventHandler(Request request, Response response);
 
@@ -43,7 +43,7 @@
             try
             { 
                 HttpListener.Start();
-                isFinished = new AutoResetEvent(false);
+                isFinished = new ManualResetEvent(false);
                 logger?.LogInformation("HttpListener for requests on [{0}] running!", string.Join(", ", UriPrefixes));
                  
                 while (!isFinished.WaitOne(0) && HttpListener.IsListening)

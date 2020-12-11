@@ -181,7 +181,7 @@ namespace DeltaX.JsonRpcHttpTest
             client.Timeout = TimeSpan.FromSeconds(100);
             client.BaseAddress = new Uri("http://localhost:8081/");
              
-            var rpcClient = new Rpc(new JsonRcpHttpConnectionClient(client));
+            var rpcClient = new Rpc(new JsonRcpHttpClientConnection(client));
 
             var service = rpcClient.GetServices<IExampleService>();
              

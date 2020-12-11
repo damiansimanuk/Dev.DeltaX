@@ -125,10 +125,10 @@ namespace DeltaX.JsonRpcMqtt
             config.Password = "sima";
 
             var mqtt = new MqttClientHelper(config);
-
+            var taskRun = mqtt.RunAsync();
             TestMqtt(mqtt);
 
-            mqtt.RunAsync().Wait();
+            taskRun.Wait();
             mqtt.Disconnect();
         }
 
