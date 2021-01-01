@@ -39,3 +39,5 @@ dist/
 obj/ 
 *.tgz
 *.zip 
+/Source/UI/DeltaX.GenericReportDb/wwwroot
+/Source/UI/DeltaX.VueDefaultTemplate/wwwroot

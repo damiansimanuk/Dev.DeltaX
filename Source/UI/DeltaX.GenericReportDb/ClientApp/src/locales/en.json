@@ -1,0 +1,26 @@
+{
+  "home": {
+    "title": "Demo Page Title",
+    "title_primary": "Primary Title",
+    "title_secondary": "Secondary Title"
+  },
+  "login": {
+    "title": "Login",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Submit",
+    "go_back": "Go Back"
+  },
+  "messages": {
+    "user_updated_successfully": "User updated successfully"
+  },
+  "global": {
+    "login": {
+      "failed": "login fail",
+      "loginRequired": "login required",
+      "incorrectLogin": "incorrect Login",
+      "passwordRequired": "password required",
+      "incorrectPassword": "incorrect password"
+    }
+  }
+}

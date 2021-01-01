@@ -8,12 +8,12 @@
     {
         public DataTrackerResultDto(IEnumerable<DataTracker<T>> items)
         {
-            if (items.Any())
+            if (items != null && items.Any())
             {
                 First = items.Min(i => i.Updated);
                 Last = items.Max(i => i.Updated);
+                Items = items.ToArray();
             }
-            Items = items.ToArray();
         }
 
         public IEnumerable<DataTracker<T>> Items { get; set; }

@@ -1,0 +1,24 @@
+{
+  "home": {
+    "title_primary": "Titulo Principal"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "username": "Nombre de usuario",
+    "password": "Password",
+    "submit": "Submit",
+    "go_back": "Go Back"
+  },
+  "messages": {
+    "user_updated_successfully": "User updated successfully"
+  },
+  "global": {
+    "login": {
+      "failed": "login fail",
+      "loginRequired": "login required",
+      "incorrectLogin": "incorrect Login",
+      "passwordRequired": "password required",
+      "incorrectPassword": "incorrect password"
+    }
+  }
+}

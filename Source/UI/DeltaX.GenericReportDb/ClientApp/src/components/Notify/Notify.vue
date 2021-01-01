@@ -28,7 +28,7 @@
                 </v-col>
               </v-row>
               <v-progress-linear
-                v-if="a.timeout > 1000"
+                v-if="a.timeout && a.timeout > 1000"
                 :color="a.color || a.type"
                 height="2"
                 :value="((datetime - a.timestart) / a.timeout) * 100"
@@ -102,7 +102,12 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Vue from "vue";
-import { IMessage, IMessageAlert, IMessageConfirm, INotify } from "./types";
+import {
+  IMessage,
+  IMessageAlert,
+  IMessageConfirm,
+  INotify
+} from "@/Interfaces/notify";
 
 const loadingRutes = new Set();
 
@@ -111,7 +116,7 @@ const Notify = new Vue({
     confirmations: [] as Array<IMessageConfirm>,
     alerts: [] as Array<IMessageAlert>,
     datetime: Date.now(),
-    interval: 0,
+    interval: 0 as any,
     loading: false
   }),
 
@@ -158,7 +163,7 @@ const Notify = new Vue({
 
       return new Promise<number>((resolve, reject) => {
         const m: IMessageConfirm = {
-          id: this.getId(msg.type),
+          id: this.getId(msg.type || ""),
           color: c,
           ...msg,
           resolve: resolve,
@@ -178,7 +183,7 @@ const Notify = new Vue({
           : undefined;
       return new Promise<number>((resolve, reject) => {
         const m: IMessageAlert = {
-          id: this.getId(msg.type),
+          id: this.getId(msg.type || ""),
           color: c,
           ...msg,
           timeout: msg.timeout || 0,
@@ -188,7 +193,7 @@ const Notify = new Vue({
         };
 
         this.alerts.splice(0, 0, m);
-        if (m.timeout > 200) {
+        if (m.timeout || 0 > 200) {
           setTimeout(() => {
             m.resolve(-1);
             this.deleteItem(m);
@@ -249,12 +254,6 @@ const Notify = new Vue({
   }
 });
 
-// EXPORT window.Notify
-declare global {
-  interface Window {
-    Notify: INotify;
-  }
-}
 window.Notify = Notify;
 
 // EXPORT Vue.prototype.$Notify

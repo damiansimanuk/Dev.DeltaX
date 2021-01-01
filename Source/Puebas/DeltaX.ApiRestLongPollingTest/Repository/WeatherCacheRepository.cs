@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reactive.Linq;
     using System.Threading;
     using System.Threading.Tasks; 
     using DeltaX.ApiRestLongPollingTest.Dto;
@@ -39,14 +40,15 @@
 
             // Shared object
             this.SharedCache = sourceCache.Connect()
-                .Transform(w => new DataTracker<WeatherForecast>(w, null))
+                .Transform(w => new DataTracker<WeatherForecast>(w, null)) 
+                .ForEachChange(e=> e.Current.Reason = $"{e.Reason}")
                 .AsObservableCache();
 
             // Initialize Cache with all items
             this.sourceCache.AddOrUpdate(base.GetAll(0, limitSizeTo).Items);
         }
 
-        public IObservableCache<DataTracker<WeatherForecast>, Guid> SharedCache { get; private set; }
+        public IObservableCache<DataTracker<WeatherForecast>, Guid> SharedCache { get; private set; } 
 
         public new WeatherForecast Insert(CreateWeatherDto newItem)
         {
@@ -77,6 +79,32 @@
                 sourceCache.RemoveKey(item.Id);
             }
             return item;
+        }
+
+        public async Task<DataTrackerResultDto<WeatherForecast>> GetItemsAsync(
+            Func<DataTracker<WeatherForecast>, bool> filter,
+            TimeSpan timeout,
+            CancellationToken? cancellation = null
+            )
+        {
+            var res = await SharedCache.Connect()
+                .WhereReasonsAreNot(ChangeReason.Remove)
+                .Filter(filter)
+                .GetItemsAsync(timeout, cancellation);
+
+            return new DataTrackerResultDto<WeatherForecast>(res);
+        }
+
+        public async Task<DataTrackerResultDto<WeatherForecast>> GetRemoved(
+            TimeSpan timeout,
+            CancellationToken? cancellation = null
+           )
+        {
+            var res = await SharedCache.Connect() 
+                .WhereReasonsAre(ChangeReason.Remove)
+                .GetItemsAsync(timeout, cancellation);
+
+            return new DataTrackerResultDto<WeatherForecast>(res);
         }
     }
 }

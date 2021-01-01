@@ -9,5 +9,7 @@ namespace DeltaX.ApiRestLongPollingTest.Dto
         public int TemperatureC { get; set; } 
 
         public string Summary { get; set; }
+
+        public string Region { get; set; }
     }
 }

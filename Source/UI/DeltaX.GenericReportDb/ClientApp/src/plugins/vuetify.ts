@@ -1,7 +1,11 @@
 import Vue from "vue";
-import Vuetify from "vuetify";
+// import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import es from "vuetify/src/locale/es";
+
+import Vuetify from "vuetify/lib";
+import "material-design-icons-iconfont/dist/material-design-icons.css";
+import "@mdi/font/css/materialdesignicons.css";
 
 Vue.use(Vuetify);
 
@@ -27,6 +31,6 @@ export default new Vuetify({
     current: "es"
   },
   icons: {
-    iconfont: "md"
+    iconfont: "mdi",
   }
 });

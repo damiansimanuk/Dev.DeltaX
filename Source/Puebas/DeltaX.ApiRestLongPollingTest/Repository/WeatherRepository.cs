@@ -26,6 +26,7 @@ namespace DeltaX.ApiRestLongPollingTest.Repository
                 Id = Guid.NewGuid(),
                 Date = i.Date,
                 Summary = i.Summary,
+                Region = i.Region,
                 TemperatureC = i.TemperatureC
             }).ToArray();
 
@@ -41,6 +42,7 @@ namespace DeltaX.ApiRestLongPollingTest.Repository
                 Id = Guid.NewGuid(),
                 Date = newItem.Date,
                 Summary = newItem.Summary,
+                Region = newItem.Region,
                 TemperatureC = newItem.TemperatureC
             };
             logger?.LogInformation("Insert DB id:{0}",item.Id);

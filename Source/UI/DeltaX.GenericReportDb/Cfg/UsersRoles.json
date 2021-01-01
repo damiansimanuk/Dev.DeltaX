@@ -1,0 +1,243 @@
+﻿{
+  "DisplayName": "UsersRoles",
+  "PrefixItem": "usersrole",
+  "PrefixList": "usersroles",
+  "Enable": true,
+
+  "DatabaseType": "Sqlite",
+  "ConnectionString": "Filename=GenericReportDb.sqlite3",
+  "PrimaryKeysDelimiter": ";",
+
+  "PermissionsRoles": [ "UsersAdmin" ],
+
+  "Widgets": {
+    "SelectUser": {
+      "field": "UserId",
+      "type": "Select",
+      "label": "Select User",
+      "required": true,
+      "itemText": "Username",
+      "itemValue": "UserId",
+      "itemsApi": {
+        "configName": "UsersRoles",
+        "prefixList": "users"
+      },
+      "bindFlex": {
+        "md6": true,
+        "sm6": true,
+        "xs12": true
+      }
+    },
+
+    "SelectRol": {
+      "field": "RolId",
+      "type": "Select",
+      "label": "Select Rol",
+      "required": true,
+      "itemText": "RoleName",
+      "itemValue": "RolId",
+      "itemsApi": {
+        "configName": "UsersRoles",
+        "prefixList": "roles"
+      },
+      "bindFlex": {
+        "md6": true,
+        "sm6": true,
+        "xs12": true
+      }
+    },
+    "Create": {
+      "field": "C",
+      "label": "Create",
+      "type": "Checkbox",
+      "required": true,
+      "bindFlex": {
+        "md3": true,
+        "sm3": true,
+        "xs6": true
+      }
+    },
+    "Read": {
+      "field": "R",
+      "label": "Read",
+      "type": "Checkbox",
+      "required": true,
+      "default": true,
+      "bindFlex": {
+        "md3": true,
+        "sm3": true,
+        "xs6": true
+      }
+    },
+    "Update": {
+      "field": "U",
+      "label": "Update",
+      "type": "Checkbox",
+      "required": true,
+      "bindFlex": {
+        "md3": true,
+        "sm3": true,
+        "xs6": true
+      }
+    },
+    "Delete": {
+      "field": "D",
+      "label": "Delete",
+      "type": "Checkbox",
+      "required": true,
+      "bindFlex": {
+        "md3": true,
+        "xs6": true
+      }
+    }
+  },
+
+  "WidgetsOnCreate": [
+    {
+      "widgetName": "SelectUser",
+      "dense": true
+    },
+    {
+      "widgetName": "SelectRol",
+      "dense": true
+    },
+    {
+      "widgetName": "Create",
+      "dense": true
+    },
+    {
+      "widgetName": "Read",
+      "dense": true
+    },
+    {
+      "widgetName": "Update",
+      "dense": true
+    },
+    {
+      "widgetName": "Delete",
+      "dense": true
+    }
+  ],
+
+  "WidgetsOnEdit": [
+    {
+      "field": "Username",
+      "readonly": true,
+      "bindFlex": {
+        "md6": true,
+        "xs12": true
+      }
+    },
+    {
+      "field": "RoleName",
+      "readonly": true,
+      "bindFlex": {
+        "md6": true,
+        "xs12": true
+      }
+    },
+    {
+      "widgetName": "Create",
+      "dense": true
+    },
+    {
+      "widgetName": "Read",
+      "dense": true
+    },
+    {
+      "widgetName": "Update",
+      "dense": true
+    },
+    {
+      "widgetName": "Delete",
+      "dense": true
+    }
+  ],
+
+  "ListFields": [
+    "Username",
+    "RoleName",
+    "C",
+    "Read",
+    "U",
+    "D",
+    "CreatedAt"
+  ], 
+
+  "Endpoints": {
+    "usersrole": {
+      "PrimaryKeys": [ "UserId", "RolId" ],
+
+      "GetItem": [
+        "select ",
+        "UserId, RolId, u.Username, r.Name as RoleName, C, R, U, D, ur.CreatedAt ",
+        "from usersroles ur ",
+        "join users u on u.Id = ur.UserId ",
+        "join roles r on r.Id = ur.RolId ",
+        "where UserId = @UserId AND RolId = @RolId "
+      ],
+
+      "UpdateFields": [ "C", "R", "U", "D" ],
+
+      "UpdateItem": [
+        "update usersroles set ",
+        "C=@C, R=@R, U=@U, D=@D ",
+        "where UserId = @UserId AND RolId = @RolId "
+      ],
+      "DeleteItem": [
+        "delete from usersroles where UserId = @UserId AND RolId = @RolId "
+      ]
+    },
+
+    "usersroles": {
+      "InsertFields": [ "UserId", "RolId", "C", "R", "U", "D" ],
+      "InsertList": [
+        "insert into usersroles ",
+        "(UserId, RolId, C, R, U, D)",
+        "values (@UserId, @RolId, @C, @R, @U, @D)"
+      ],
+      "CountList": [],
+
+      "GetList": [
+        "select ",
+        "UserId, RolId, u.Username, r.Name as RoleName, C, R, U, D, ur.CreatedAt ",
+        "from usersroles ur ",
+        "join users u on u.Id = ur.UserId ",
+        "join roles r on r.Id = ur.RolId "
+      ],
+
+      "SearchFields": [ "UserId", "RolId", "Username", "RoleName" ],
+
+      "SearchList": [
+        "select ",
+        "UserId, RolId, u.Username, r.Name as RoleName, C, R, U, D, ur.CreatedAt ",
+        "from usersroles ur ",
+        "join users u on u.Id = ur.UserId ",
+        "join roles r on r.Id = ur.RolId ",
+        "WHERE (UserId = @UserId or @UserId is null) ",
+        "AND (RolId = @RolId or @RolId is null) ",
+        "AND (u.Username like @Username or @Username is null) ",
+        "AND (RoleName like @RoleName or @RoleName is null) "
+      ]
+    },
+    "users": {
+      "SearchFields": [ "UserId" ],
+      "SearchList": [
+        "select ",
+        "Id as UserId, Username ",
+        "from users ",
+        "WHERE (Id = @UserId or @UserId is null) "
+      ]
+    },
+    "roles": {
+      "GetList": [ "select ", "Id as RolId, Name as RoleName ", "from roles " ],
+      "SearchFields": [ "RolId" ],
+      "SearchList": [
+        "select ",
+        "Id as RolId, Name as RoleName ",
+        "from roles ",
+        "WHERE (Id = @RolId or @RolId is null) "
+      ]
+    }
+  }
+}

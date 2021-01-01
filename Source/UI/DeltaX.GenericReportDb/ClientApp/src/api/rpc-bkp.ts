@@ -1,4 +1,4 @@
-console.log("************** RPC *************")
+console.log("************** RPC *************");
 
 interface IInner {
   Content: string;
@@ -13,9 +13,9 @@ interface IModal {
 
 console.log("IModal: ");
 
-var str = JSON.stringify({
+const str = JSON.stringify({
   content: "asdf",
-  inner: { Content: "El contenido" },
+  inner: { Content: "El contenido" }
 });
 const modal = JSON.parse(str) as IModal;
 
@@ -33,16 +33,13 @@ interface IRpcConnection {
   Send(method: string, args: any): void;
 }
 
-function GetServices<T>(
-  connection: IRpcConnection,
-  namePrefix: string = ""
-): T {
-  let handler = {
+function GetServices<T>(connection: IRpcConnection, namePrefix = ""): T {
+  const handler = {
     get<P extends keyof T>(target: any, propKey: P) {
       return function(...args: any) {
-        var response = connection.Request(propKey as string, args);
-        var res: any = args[0];
-        var x = res as T[P];
+        const response = connection.Request(propKey as string, args);
+        const res: any = args[0];
+        const x = res as T[P];
 
         console.log(
           "get.function",
@@ -62,15 +59,15 @@ function GetServices<T>(
 
         return res as T[P];
       };
-    },
+    }
   };
   return new Proxy(connection, handler) as T;
 }
 
-var conn = { Request: (m, a) => a } as IRpcConnection;
+const conn = { Request: (m, a) => a } as IRpcConnection;
 var rpc = GetServices<IRpcCommon>(conn);
-var r = rpc.Concatenar("asdf", 123) as string;
-var r2 = rpc.Sumar(32, 34);
+const r = rpc.Concatenar("asdf", 123) as string;
+const r2 = rpc.Sumar(32, 34);
 console.log("GetServices result", typeof r, r, typeof r2, r2);
 
 console.log("-------------------");
@@ -85,25 +82,25 @@ class RpcCommon implements IRpcCommon {
   }
 }
 
-var rpcCommon = new RpcCommon();
-var r3 = rpcCommon.Sumar(23, 45);
+const rpcCommon = new RpcCommon();
+const r3 = rpcCommon.Sumar(23, 45);
 
 console.log("rpcCommon Sumar result", typeof r3, r3);
 
-r3.then((r) => console.log("---- Sumar result", r));
+r3.then(r => console.log("---- Sumar result", r));
 
 console.log("-------------------");
 
-let target = { a: 1 };
-let handler = {
+const target = { a: 1 };
+const handler = {
   get(target: any, propKey: string | number | symbol) {
     return function(...args: any) {
       console.log("get.function", target, propKey, args);
     };
-  },
+  }
 };
 
-var p = new Proxy(target, handler) as IRpcCommon;
+const p = new Proxy(target, handler) as IRpcCommon;
 p.Concatenar("1, 2", 23);
 
 var rpc = { Concatenar: (a, b) => `${a} ${b}` } as IRpcCommon;
@@ -119,7 +116,6 @@ interface User {
 interface Payment {
   id: string;
 }
- 
 
 // a mapping of request paths to the function signatures
 // you expect to return from createRequest
@@ -148,38 +144,38 @@ async function foo() {
   const payment = await fetchPayment("id", { createdAfter: new Date() }); // Payment
 }
 
-
 // you expect to return from createRequest
-interface IRequests { 
-}
+interface IRequests {}
 
- 
 interface Method {
-    "GET": {
-        "/users": (clause: { createdAfter: Date }) => Promise<Array<User>>;
-        "/payments": (id: string, clause: { createdAfter: Date }) => Promise<Payment>;
-    },
-    "Post": {
-        "/users": (clause: { createdAfter: Date }) => Promise<Array<User>>;
-        "/payments": (id: string, clause: { createdAfter: Date }) => Promise<Payment>;
-    }  
-} 
- 
-
-        
+  GET: {
+    "/users": (clause: { createdAfter: Date }) => Promise<Array<User>>;
+    "/payments": (
+      id: string,
+      clause: { createdAfter: Date }
+    ) => Promise<Payment>;
+  };
+  Post: {
+    "/users": (clause: { createdAfter: Date }) => Promise<Array<User>>;
+    "/payments": (
+      id: string,
+      clause: { createdAfter: Date }
+    ) => Promise<Payment>;
+  };
+}
 
 // for now only GET is supported, and the path must be one of keyof Requests
-const GetService = function <P extends keyof Method, TR extends    Method[P] >(method: P) {
-    return (
-        function GetMethod<X extends keyof TR>(path: X) {
-             return {} as TR[X];
-        }
-    )
-}
+const GetService = function<P extends keyof Method, TR extends Method[P]>(
+  method: P
+) {
+  return function GetMethod<X extends keyof TR>(path: X) {
+    return {} as TR[X];
+  };
+};
 
-var x = GetService("GET")("/users")({ createdAfter: new Date() })
+const x = GetService("GET")("/users")({ createdAfter: new Date() });
 
 export default {
   GetService,
   GetServices
-}
+};

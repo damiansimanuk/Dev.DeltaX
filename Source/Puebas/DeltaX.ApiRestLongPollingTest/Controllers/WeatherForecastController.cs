@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DeltaX.ApiRestLongPollingTest.Dto;
@@ -75,21 +76,41 @@ namespace DeltaX.ApiRestLongPollingTest.Controllers
 
 
         [HttpPost("Items/GetSince")]
-        public async Task<DataTrackerResultDto<WeatherForecast>> GetSince(
+        public   Task<DataTrackerResultDto<WeatherForecast>> GetSince(
             CancellationToken cancellation,
             [FromBody] GetWeatherSinceDto getSince 
             )
         { 
-            var since = getSince.Since ?? new DateTimeOffset(DateTime.Now); 
+            var since = getSince.Since ?? new DateTimeOffset(DateTime.Now);
+            var region = getSince.Region;
+            var timeout = TimeSpan.FromSeconds(getSince.Timeout);
 
-            var res = await cacheRepository.SharedCache.Connect()
-                .Filter(i => i.Updated > since)
-                .GetItemsAsync(
-                    TimeSpan.FromSeconds(getSince.Timeout),
-                    cancellation,
-                    u => u.Count > u.Removes);
+            bool filter(DataTracker<WeatherForecast> i) =>
+                !string.IsNullOrEmpty(region)
+                ? string.Compare(region, i.Item.Region, true) == 0 && i.Updated > since
+                : i.Updated > since;
 
-            return new DataTrackerResultDto<WeatherForecast>(res); 
+            return cacheRepository.GetItemsAsync(filter, timeout, cancellation); 
+        }
+
+        [HttpGet("Items/GetRemoved")]
+        public async Task<DataTrackerResultDto<WeatherForecast>> GetRemoved(
+            CancellationToken cancellation,
+            [FromQuery] int timeout = 200
+            )
+        {
+            return await cacheRepository.GetRemoved(TimeSpan.FromSeconds(timeout), cancellation);
+
+            // var since = new DateTimeOffset(DateTime.Now);
+            // var res = await cacheRepository.SharedCache.Connect()
+            //     .WhereReasonsAre(ChangeReason.Remove)
+            //     .Filter(i => i.Updated > since)
+            //     .GetItemsAsync(
+            //         TimeSpan.FromSeconds(timeout),
+            //         cancellation,
+            //         u => true);
+            // 
+            // return new DataTrackerResultDto<WeatherForecast>(res);
         }
     }
 }

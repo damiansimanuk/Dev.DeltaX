@@ -1,28 +1,29 @@
 <template>
-  <v-app dark>
-    <keep-alive>
-      <Notify />
-    </keep-alive>
-    <v-app-bar app color="primary" dark>
-      <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link class="color-red" to="/about">About</router-link>
-      </div>
-    </v-app-bar>
-
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app>
+  <div>
+    <component :is="componentLayout">
+      <slot />
+    </component>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import Notify from "./components/Notify/Notify.vue";
+import { DISPATCH } from "@/components/auth/store";
+import PublicLayout from "@/layouts/public.vue";
+import DefaultLayout from "@/layouts/default.vue";
 
 export default Vue.extend({
   name: "App",
-  components: { Notify },
-  data: () => ({})
+  components: { PublicLayout, DefaultLayout },
+  data: () => ({}),
+  created() {
+    //  DISPATCH("GetCurrentUser");
+  },
+  computed: {
+    componentLayout(): string {
+      const meta = this.$route.meta;
+      return meta && meta.layout ? meta.layout : "PublicLayout";
+    }
+  }
 });
 </script>

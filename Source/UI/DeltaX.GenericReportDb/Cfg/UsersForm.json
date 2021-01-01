@@ -1,0 +1,411 @@
+﻿{
+  "DisplayName": "Administracion de Usuarios",
+  "PrefixItem": "user",
+  "PrefixList": "users",
+  "Enable": true,
+  "DatabaseType": "Sqlite",
+  "ConnectionString": "Filename=GenericReportDb.sqlite3",
+  "PrimaryKeysDelimiter": ";",
+  "PermissionsRoles": [
+    "UsersAdmin"
+  ],
+  "Widgets": {
+    "Id": {
+      "disabled": true,
+      "type": "Number",
+      "bindFlex": {
+        "md2": true,
+        "sm2": true,
+        "xs4": true
+      }
+    },
+    "Username": {
+      "field": "Username",
+      "type": "Text",
+      "readonly": true,
+      "label": "Usuario",
+      "min": 4,
+      "max": 20,
+      "required": true,
+      "bindFlex": {
+        "md5": true,
+        "sm5": true,
+        "xs8": true
+      }
+    },
+    "FullName": {
+      "field": "FullName",
+      "type": "Text",
+      "label": "Nombre Completo",
+      "min": 4,
+      "max": 40,
+      "bindFlex": {
+        "md6": true,
+        "sm6": true,
+        "xs12": true
+      }
+    },
+    "Email": {
+      "field": "Email",
+      "type": "Text",
+      "label": "Correo Electrónico",
+      "min": 2,
+      "max": 20,
+      "required": false,
+      "isEmail": true,
+      "trim": true,
+      "bindFlex": {
+        "md6": true,
+        "sm6": true,
+        "xs12": true
+      }
+    },
+    "Image": {
+      "field": "Image",
+      "type": "File",
+      "outlined": true,
+      "required": false,
+      "base64": true,
+      "size": 80,
+      "imageResize": 300
+    },
+    "Active": {
+      "field": "Active",
+      "label": "Usuario Activo",
+      "disabled": false,
+      "type": "Checkbox",
+      "required": false,
+      "min": 0,
+      "max": 1
+    },
+    "Create": {
+      "field": "C",
+      "label": "Create",
+      "type": "Checkbox",
+      "required": true,
+      "bindFlex": {
+        "md3": true,
+        "sm3": true,
+        "xs6": true
+      }
+    },
+    "Read": {
+      "field": "R",
+      "label": "Read",
+      "type": "Checkbox",
+      "required": true,
+      "default": true,
+      "bindFlex": {
+        "md3": true,
+        "sm3": true,
+        "xs6": true
+      }
+    },
+    "Update": {
+      "field": "U",
+      "label": "Update",
+      "type": "Checkbox",
+      "required": true,
+      "bindFlex": {
+        "md3": true,
+        "sm3": true,
+        "xs6": true
+      }
+    },
+    "Delete": {
+      "field": "D",
+      "label": "Delete",
+      "type": "Checkbox",
+      "required": true,
+      "bindFlex": {
+        "md3": true,
+        "xs6": true
+      }
+    }
+  },
+  "WidgetsOnCreate": [
+    {
+      "widgetName": "Username",
+      "readonly": false
+    },
+    {
+      "widgetName": "Email",
+      "bindFlex": {
+        "md6": true,
+        "xs12": true
+      }
+    },
+    {
+      "widgetName": "FullName",
+      "readonly": false,
+      "required": false
+    }
+  ],
+  "WidgetsOnEdit": [
+    {
+      "widgetName": "Id",
+      "dense": true,
+      "disabled": true
+    },
+    {
+      "widgetName": "Username",
+      "readonly": true,
+      "dense": true
+    },
+    {
+      "widgetName": "FullName",
+      "dense": true
+    },
+    {
+      "widgetName": "Email",
+      "dense": true
+    },
+    {
+      "type": "DataTable",
+      "dense": true,
+      "hideFooter": true,
+      "label": "Permisos del usuario",
+      "loadItems": {
+        "prefixItem": "usersroleTable",
+        "prefixList": "usersroleTable",
+        "mapItemParent": {
+          "UserId": "Id"
+        },
+        "listFields": [
+          "RoleName",
+          "C",
+          "R",
+          "U",
+          "D"
+        ],
+        "widgetsOnCreate": [
+          {
+            "field": "Username",
+            "readonly": true,
+            "dense": true,
+            "bindFlex": {
+              "md6": true,
+              "xs12": true
+            }
+          },
+          {
+            "field": "RolId",
+            "type": "Select",
+            "label": "Select Rol",
+            "required": true,
+            "dense": true,
+            "itemText": "RoleName",
+            "itemValue": "RolId",
+            "itemsApi": {
+              "prefixList": "rolesSelect"
+            },
+            "bindFlex": {
+              "md6": true,
+              "sm6": true,
+              "xs12": true
+            }
+          },
+          {
+            "field": "RolId",
+            "type": "Number",
+            "label": null,
+            "dense": true
+          },
+          {
+            "widgetName": "Create",
+            "dense": true
+          },
+          {
+            "widgetName": "Read",
+            "dense": true
+          },
+          {
+            "widgetName": "Update",
+            "dense": true
+          },
+          {
+            "widgetName": "Delete",
+            "dense": true
+          }
+        ],
+        "widgetsOnEdit": [
+          {
+            "field": "Username",
+            "readonly": true,
+            "bindFlex": {
+              "md6": true,
+              "xs12": true
+            }
+          },
+          {
+            "field": "RoleName",
+            "readonly": true,
+            "bindFlex": {
+              "md6": true,
+              "xs12": true
+            }
+          },
+          {
+            "widgetName": "Create",
+            "dense": true
+          },
+          {
+            "widgetName": "Read",
+            "dense": true
+          },
+          {
+            "widgetName": "Update",
+            "dense": true
+          },
+          {
+            "widgetName": "Delete",
+            "dense": true
+          }
+        ]
+      },
+      "height": 150,
+      "bindFlex": {
+        "md12": true,
+        "xs12": true
+      }
+    }
+  ],
+  "ListFields": [
+    "Id",
+    "Username",
+    "FullName",
+    {
+      "text": "Correo",
+      "value": "Email",
+      "sortable": true
+    }
+  ],
+  "Endpoints": {
+    "user": {
+      "PrimaryKeys": [
+        "Id"
+      ],
+      "GetItem": [
+        "select ",
+        "Id, Username, FullName, Email, Image, Active",
+        "from users where Id = @Id "
+      ],
+      "UpdateFields": [
+        "FullName",
+        "Email",
+        "Image"
+      ],
+      "UpdateItem": [
+        "update users set ",
+        "FullName=@FullName, ",
+        "Email=@Email ",
+        "where Id = @Id "
+      ],
+      "DeleteItem": [
+        "delete from users where Id = @Id "
+      ]
+    },
+    "users": {
+      "InsertFields": [
+        "Username",
+        "FullName",
+        "Email",
+        "Image"
+      ],
+      "InsertList": [
+        "insert into users ",
+        "(Username, FullName, Email, Image, Active)",
+        "values (@Username, @FullName, @Email, @Image, 1)"
+      ],
+      "CountList": [
+        "select count() from users "
+      ],
+      "GetList": [
+        "select ",
+        "Id, Username, FullName, Email ",
+        "from users ",
+        "LIMIT @PerPage OFFSET @Offset"
+      ],
+      "SearchFields": [
+        "Id",
+        "Username",
+        "FullName",
+        "Email"
+      ],
+      "SearchList": [
+        "select ",
+        "Id, Username, FullName, Email ",
+        "from users ",
+        "WHERE (Id = @Id or @Id is null) ",
+        "AND (Username like @Username or @Username is null) ",
+        "AND (FullName like @FullName or @FullName is null) ",
+        "AND (Email like @Email or @Email is null) "
+      ]
+    },
+    "usersroleTable": {
+      "InsertFields": [
+        "UserId",
+        "RolId",
+        "C",
+        "R",
+        "U",
+        "D"
+      ],
+      "InsertList": [
+        "insert into usersroles ",
+        "(UserId, RolId, C, R, U, D)",
+        "values (@UserId, @RolId, @C, @R, @U, @D)"
+      ],
+      "SearchFields": [
+        "UserId",
+        "RolId"
+      ],
+      "SearchList": [
+        "select ",
+        "UserId, RolId, u.Username, r.Name as RoleName, C, R, U, D, ur.CreatedAt ",
+        "from usersroles ur ",
+        "join users u on u.Id = ur.UserId ",
+        "join roles r on r.Id = ur.RolId ",
+        "WHERE (UserId = @UserId or @UserId is null) ",
+        "AND (RolId = @RolId or @RolId is null) "
+      ],
+      "PrimaryKeys": [
+        "UserId",
+        "RolId"
+      ],
+      "GetItem": [
+        "select ",
+        "UserId, RolId, u.Username, r.Name as RoleName, C, R, U, D, ur.CreatedAt ",
+        "from usersroles ur ",
+        "join users u on u.Id = ur.UserId ",
+        "join roles r on r.Id = ur.RolId ",
+        "where UserId = @UserId AND RolId = @RolId "
+      ],
+      "UpdateFields": [
+        "C",
+        "R",
+        "U",
+        "D"
+      ],
+      "UpdateItem": [
+        "update usersroles set ",
+        "C=@C, R=@R, U=@U, D=@D ",
+        "where UserId = @UserId AND RolId = @RolId "
+      ],
+      "DeleteItem": [
+        "delete from usersroles where UserId = @UserId AND RolId = @RolId "
+      ]
+    },
+    "rolesSelect": {
+      "SearchFields": [
+        "RolId"
+      ],
+      "SearchList": [
+        "select ",
+        "Id as RolId, Name as RoleName ",
+        "from roles ",
+        "WHERE (Id = @RolId or @RolId is null) "
+      ]
+    }
+  }
+}

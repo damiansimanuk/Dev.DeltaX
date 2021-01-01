@@ -3,9 +3,13 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+import "@/components/auth/store";
+
+const store = new Vuex.Store({
   state: {},
   mutations: {},
-  actions: {},
-  modules: {}
-});
+  actions: {}
+})
+
+export type StoreType = typeof store
+export default store;
