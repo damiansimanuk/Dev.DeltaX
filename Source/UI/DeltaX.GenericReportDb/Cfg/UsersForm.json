@@ -206,12 +206,6 @@
             }
           },
           {
-            "field": "RolId",
-            "type": "Number",
-            "label": null,
-            "dense": true
-          },
-          {
             "widgetName": "Create",
             "dense": true
           },

@@ -120,7 +120,7 @@ namespace DeltaX.Repository.Common.Table
         public string GetSelectColumnsList(ITableConfiguration table, string tableAlias = null)
         {
             var columns = table.GetSelectColumnsList();
-            return string.Join("\n\t, ", columns.Select(c => columns.Select(c => GetColumnFormated(c, tableAlias))));
+            return string.Join("\n\t, ", columns.Select(c => GetColumnFormated(c, tableAlias)));
         }
 
         public string GetInsertColumns(ITableConfiguration table, IEnumerable<string> fieldsToInsert = null)

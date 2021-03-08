@@ -20,15 +20,15 @@ namespace DeltaX.Downtime.Application
             builder.RegisterType<DowntimeApplicationService>()
                 .InstancePerDependency(); 
 
-            builder.RegisterServiceMiddleware<DowntimeApplicationService>(PipelinePhase.ServicePipelineEnd, (context, next) =>
-            {
-                var uow = context.Resolve<IUnitOfWork>();
-                Console.WriteLine("Requesting Service: {0}", context.Service);
-
-                next(context);
-
-                Console.WriteLine("Requesting Service: {0}", context.Service);
-            }); 
+            // builder.RegisterServiceMiddleware<DowntimeApplicationService>(PipelinePhase.ServicePipelineEnd, (context, next) =>
+            // {
+            //     var uow = context.Resolve<IUnitOfWork>();
+            //     Console.WriteLine("Requesting Service: {0}", context.Service);
+            // 
+            //     next(context);
+            // 
+            //     Console.WriteLine("Requesting Service: {0}", context.Service);
+            // }); 
         }
     }
 }

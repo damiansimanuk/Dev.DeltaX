@@ -20,12 +20,12 @@ namespace DeltaX.GenericReportDb.Controllers
     public class CrudController : ControllerBase
     {
         private readonly IUserService userService;
-        private readonly CrudServiceBuilder crud;
+        private readonly CrudServicePool crudServicePool;
 
-        public CrudController(IUserService userService, CrudServiceBuilder crud)
+        public CrudController(IUserService userService, CrudServicePool crudServicePool)
         {
             this.userService = userService;
-            this.crud = crud;
+            this.crudServicePool = crudServicePool;
         }
 
 
@@ -52,7 +52,7 @@ namespace DeltaX.GenericReportDb.Controllers
         [HttpGet("_config/{configName}")]
         public IActionResult GetConfiguration(string configName)
         {
-            var service = crud.GetCrudService(configName);
+            var service = crudServicePool.GetService(configName);
             if (service == null)
                 return BadRequest(new { message = "configName not found" });
 
@@ -64,7 +64,7 @@ namespace DeltaX.GenericReportDb.Controllers
         { 
             var user = GetCurrentUserAsync().Result;
 
-            var result = crud.GetAllServices()
+            var result = crudServicePool.GetAllServices()
                 .Select(s => s.Configuration)
                 .Where(c => user.HasPermission(c.PermissionsRoles, read: 1))
                 .Select(c => new { c.Name, c.DisplayName});
@@ -76,7 +76,7 @@ namespace DeltaX.GenericReportDb.Controllers
         [HttpGet("_search/{configName}/{prefix}")]
         public IActionResult SearchList(string configName, string prefix, [FromQuery] string q)
         {
-            var service = crud.GetCrudService(configName);
+            var service = crudServicePool.GetService(configName);
             if (service == null || !service.ContainPrefix(EndpointFunction.SearchList, prefix))
             {
                 return BadRequest(new { message = "Endpoint not found" });
@@ -96,7 +96,7 @@ namespace DeltaX.GenericReportDb.Controllers
         [HttpPost("_search/{configName}/{prefix}")]
         public IActionResult SearchList(string configName, string prefix, [FromBody] Dictionary<string, JsonElement> data)
         {
-            var service = crud.GetCrudService(configName);
+            var service = crudServicePool.GetService(configName);
             if (service == null || !service.ContainPrefix(EndpointFunction.SearchList, prefix))
             {
                 return BadRequest(new { message = "Endpoint not found" });
@@ -118,7 +118,7 @@ namespace DeltaX.GenericReportDb.Controllers
             [FromQuery] int perPage = 10, [FromQuery] int page = 1
             )
         {
-            var service = crud.GetCrudService(configName);
+            var service = crudServicePool.GetService(configName);
             if (service == null || !service.ContainPrefix(EndpointFunction.GetList, prefix))
             {
                 return BadRequest(new { message = "Endpoint not found" });
@@ -136,7 +136,7 @@ namespace DeltaX.GenericReportDb.Controllers
         [HttpPost("{configName}/{prefix}")]
         public IActionResult InsertList(string configName, string prefix, [FromBody] Dictionary<string, JsonElement> data)
         {
-            var service = crud.GetCrudService(configName);
+            var service = crudServicePool.GetService(configName);
             if (service == null || !service.ContainPrefix(EndpointFunction.InsertList, prefix))
             {
                 return BadRequest(new { message = "Endpoint not found" });
@@ -152,7 +152,7 @@ namespace DeltaX.GenericReportDb.Controllers
         [HttpGet("{configName}/{prefix}/{primaryKeys}")]
         public IActionResult GetItem(string configName, string prefix, string primaryKeys)
         {
-            var service = crud.GetCrudService(configName);
+            var service = crudServicePool.GetService(configName);
             if (service == null || !service.ContainPrefix(EndpointFunction.GetItem, prefix))
             {
                 return BadRequest(new { message = "Endpoint not found" });
@@ -173,7 +173,7 @@ namespace DeltaX.GenericReportDb.Controllers
             [FromBody] Dictionary<string, JsonElement> data
             )
         {
-            var service = crud.GetCrudService(configName);
+            var service = crudServicePool.GetService(configName);
             if (service == null || !service.ContainPrefix(EndpointFunction.UpdateItem, prefix))
             {
                 return BadRequest(new { message = "Endpoint not found" });
@@ -191,7 +191,7 @@ namespace DeltaX.GenericReportDb.Controllers
         [HttpDelete("{configName}/{prefix}/{primaryKeys}")]
         public IActionResult DeleteItem(string configName, string prefix, string primaryKeys)
         {
-            var service = crud.GetCrudService(configName);
+            var service = crudServicePool.GetService(configName);
             if (service == null || !service.ContainPrefix(EndpointFunction.DeleteItem, prefix))
             {
                 return BadRequest(new { message = "Endpoint not found" });
@@ -207,7 +207,7 @@ namespace DeltaX.GenericReportDb.Controllers
         [HttpPut("files/{configName}/{prefix}/{primaryKeys}/{fieldName}")]
         public IActionResult UploadFile(string configName, string prefix, string primaryKeys, string fieldName, IFormFile file)
         {
-            var service = crud.GetCrudService(configName);
+            var service = crudServicePool.GetService(configName);
             if (service == null || !service.ContainPrefix(EndpointFunction.UploadFile, prefix))
             {
                 return BadRequest(new { message = "Endpoint not found" });
@@ -238,7 +238,7 @@ namespace DeltaX.GenericReportDb.Controllers
         [HttpGet("files/{configName}/{prefix}/{primaryKeys}/{fieldName}")]
         public IActionResult DownloadFile(string configName, string prefix, string primaryKeys, string fieldName, [FromQuery] string fileName = null)
         {
-            var service = crud.GetCrudService(configName);
+            var service = crudServicePool.GetService(configName);
             if (service == null || !service.ContainPrefix(EndpointFunction.DownloadFile, prefix))
             {
                 return BadRequest(new { message = "Endpoint not found" });

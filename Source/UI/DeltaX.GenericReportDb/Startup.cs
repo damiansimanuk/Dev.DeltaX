@@ -37,7 +37,7 @@ namespace DeltaX.GenericReportDb
             services.AddTransient<UserRepository>();
             services.AddTransient<IUserService, UserService>(); 
             services.AddSingleton<CrudConfiguration>();
-            services.AddSingleton<CrudServiceBuilder>();
+            services.AddSingleton<CrudServicePool>();
 
             services.AddCors(options =>
             {

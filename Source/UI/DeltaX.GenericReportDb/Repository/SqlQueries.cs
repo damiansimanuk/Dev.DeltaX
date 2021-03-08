@@ -14,7 +14,7 @@ namespace DeltaX.GenericReportDb.Repository
             "FROM Users " +
             "WHERE Username = @Username OR Email = @Username";
 
-        public static readonly string GetRolesList = "SELECT " +
+        public static readonly string GetRolesByUserId = "SELECT " +
             "RolId, Name as RolName, ur.C, ur.R, ur.U, ur.D " +
             "FROM Roles r " +
             "JOIN UsersRoles ur on r.Id = ur.RolId " +

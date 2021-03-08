@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
@@ -10,15 +11,17 @@ using System.Threading.Tasks;
 namespace DeltaX.ReactiveDataTest
 {
 
-    class DataTracker<T>
+    public class DataTracker<T>
     {
         public DateTimeOffset updated;
         public T item;
+        public NotifyCollectionChangedAction Action;
 
-        public DataTracker(T item)
+        public DataTracker(T item, NotifyCollectionChangedAction action = NotifyCollectionChangedAction.Add)
         {
             this.updated = new DateTimeOffset(DateTime.Now);
             this.item = item;
+            this.Action = action;
         }
     }
 
@@ -190,6 +193,184 @@ namespace DeltaX.ReactiveDataTest
                 }
             }, cancellationToken ?? CancellationToken.None);
         }
+
+        public void Prueba3()
+        {
+            List<DataTracker<User>> cache = new List<DataTracker<User>>();
+
+            cache.Add(new DataTracker<User>(new User { Id = 1, Name = "Pepe 1" }));
+
+            var observable = cache.ToObservable();
+            observable.Do(i =>
+            {
+                var tracker = i;
+            }).Subscribe()  ;
+
+            // Esto de abajo no funciona
+            cache.Add(new DataTracker<User>(new User { Id = 2, Name = "Pepe 2" }));
+            cache.Add(new DataTracker<User>(new User { Id = 3, Name = "Pepe 3" }));
+
+            observable.Append(new DataTracker<User>(new User { Id = 31, Name = "Pepe 31" }));
+
+        }
+
+        public class Observer<T> : IObserver<T>
+        {
+            public List<T> Results = new List<T>();
+
+            public void OnCompleted() { }
+
+            public void OnError(Exception error) { }
+
+            public void OnNext(T value)
+            {
+                Results.Add(value);
+            }
+        }
+
+        public Task<List<DataTracker<T>>> WaitResultsAsunc<T>(
+            ObservableCollection<IEnumerable<DataTracker<T>>> cache,
+            Func<DataTracker<T>, bool> filter,
+            CancellationToken? token = null)
+        {
+            token ??= CancellationToken.None;
+
+            return Task.Run(() =>
+            {
+                var resetEvent = new ManualResetEventSlim();
+                var results = cache.SelectMany(e => e.Where(filter)).ToList();
+                results ??= new List<DataTracker<T>>();
+
+                if (results.Any())
+                {
+                    return results;
+                }
+
+                void Cache_CollectionChanged(object s, NotifyCollectionChangedEventArgs e)
+                {
+                    if (e.NewItems != null)
+                    {
+                        foreach (IEnumerable<DataTracker<T>> i in e.NewItems)
+                        {
+                            if (i.Where(filter)?.Any() == true)
+                            {
+                                results.Add(i);
+                            }
+                        }
+
+                        if (results.Any())
+                        {
+                            resetEvent.Set();
+                        }
+                    }
+                }
+
+                cache.CollectionChanged +=  Cache_CollectionChanged;
+                resetEvent.Wait(TimeSpan.FromSeconds(20), token.Value);
+                cache.CollectionChanged -= Cache_CollectionChanged;
+
+                return results;
+            }, token.Value);
+        } 
+
+        public void Prueba5()
+        {
+            var cache = new ObservableCollection<IEnumerable<DataTracker<User>>>();
+
+            var resultTask = WaitResultsAsunc(cache, (e) => true);
+
+            cache.Add(new[] { new DataTracker<User>(new User { Id = 2, Name = "Pepe devuelve 1 " }) });
+            cache.Add(new[] {
+                new DataTracker<User>(new User { Id = 32, Name = "Pepe devuelve 2 1" }),
+                new DataTracker<User>(new User { Id = 33, Name = "Pepe devuelve 2 2" })
+            });
+             
+            cache.Add(new[] { new DataTracker<User>(new User { Id = 3, Name = "Pepe 3" }) });
+            cache.Add(new[] { new DataTracker<User>(new User { Id = 3, Name = "Pepe 3" }) });
+        }
+
+        public void Prueba4()
+        {
+            var observer = new Observer<DataTracker<User>>();
+            var cache = new ObservableCollection<DataTracker<User>>();
+            // cache.Add(new DataTracker<User>(new User { Id = 1, Name = "Pepe 1" }));
+            
+            var ev = new ManualResetEventSlim();
+            var result = new List<DataTracker<User>>();
+
+            var d1 = cache.ToObservable().Subscribe(observer);
+
+            lock (cache)
+            {
+                Task.Run(() =>
+                {
+                    Func<DataTracker<User>, bool> func = (i) => true;
+                    var resetEvent = new ManualResetEventSlim();
+                    var elements = cache.Where(func);
+
+                    if (elements?.Count() == 0)
+                    {
+                        cache.CollectionChanged += (a, e) =>
+                        {
+                            if (e.NewItems != null)
+                            {
+                                foreach (DataTracker<User> i in e.NewItems)
+                                {
+                                    if (func(i))
+                                    {
+                                        resetEvent.Set();
+                                    }
+                                } 
+                            }
+                        };
+
+                        if(!resetEvent.Wait(TimeSpan.FromSeconds(20)))
+                        {
+                              elements = cache.Where(func);
+                        }  
+                    }
+
+                    var result = elements;
+
+                });
+
+
+
+                /// var d = cache.ToObservable()
+                ///     .Select(i=>i)
+                ///     .Subscribe((i) =>
+                /// {
+                ///     result.Add(i);
+                ///     ev.Set();
+                /// });
+                /// cache.CollectionChanged += (a, e) =>
+                /// {
+                ///     if (e.NewItems != null)
+                ///     {
+                ///         foreach (DataTracker<User> i in e.NewItems)
+                ///         {
+                ///             result.Add(i);
+                ///         }
+                ///         ev.Set();
+                ///     }
+                /// };
+            }
+
+            Thread.Sleep(2000);
+            cache.AddRange(new[] {
+                new DataTracker<User>(new User { Id = 32, Name = "Pepe 32" }),
+                new DataTracker<User>(new User { Id = 33, Name = "Pepe 33" })
+            });
+
+            cache.Add(new DataTracker<User>(new User { Id = 2, Name = "Pepe 2" }));
+            cache.Add(new DataTracker<User>(new User { Id = 3, Name = "Pepe 3" }));
+            cache.Add(new DataTracker<User>(new User { Id = 3, Name = "Pepe 3" }));
+        }
+
+        private void asdf(DataTracker<User> obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 
@@ -200,7 +381,7 @@ namespace DeltaX.ReactiveDataTest
             Console.WriteLine("Hello World!");
 
             var pruebas = new Pruebas();
-            pruebas.Prueba2();
+            pruebas.Prueba5();
             Console.ReadLine();
         }
     }

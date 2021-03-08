@@ -1,4 +1,4 @@
-﻿using Autofac;
+﻿using Autofac; 
 using DeltaX.Downtime.DapperRepository;
 using DeltaX.Downtime.Domain;
 using DeltaX.Downtime.Domain.ProcessAggregate;
@@ -29,9 +29,7 @@ namespace DeltaX.Downtime.Console
         public void Start()
         {  
             try
-            {
-
-
+            { 
                 var id = PruebaInsertAndUpdate();
                 PruebaGetUpdate();
             }

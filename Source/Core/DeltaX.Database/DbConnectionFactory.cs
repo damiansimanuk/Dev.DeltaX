@@ -73,7 +73,7 @@
             catch (Exception ex)
             {
                 logger?.LogError(ex, "Database Connect excepcion");
-                throw ex;
+                throw;
             }
         }
     }

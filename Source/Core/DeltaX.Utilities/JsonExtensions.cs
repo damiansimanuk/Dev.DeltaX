@@ -30,7 +30,7 @@ namespace DeltaX.Utilities
         public static object JsonGetValue(this JsonElement source, string patternParser)
         {
             var element = source;
-            string[] members = patternParser.Split(new Char[] { '.', '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] members = patternParser.Split(new char[] { '.', '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var member in members)
             {
                 switch (element.ValueKind)

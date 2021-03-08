@@ -4,7 +4,7 @@ import { MutationTree } from "vuex";
 
 
 const mutations = {
-  LOGIN(state: State, payload: { Token: string, user: UserInfo }) {
+  LOGIN(state: State, payload: { token: string, user: UserInfo }) {
     state.logged = true;
     state.loginFailed = false;
     state.loginWait = false;
@@ -36,7 +36,7 @@ const mutations = {
 
   SAVE_USER(state: State, payload: { user: UserInfo }) {
     state.user = payload.user;
-    state.roles = payload.user.Roles;
+    state.roles = payload.user.roles;
     localStorage.setItem("user", JSON.stringify(state.user));
 
     // FIXME reemplazar por un evento
@@ -46,10 +46,10 @@ const mutations = {
     }, 1000);
   },
 
-  SAVE_TOKEN(state: State, payload: { Token: string }) {
+  SAVE_TOKEN(state: State, payload: { token: string }) {
     state.logged = true;
-    localStorage.setItem("accessToken", payload.Token);
-    state.accessToken = payload.Token;
+    localStorage.setItem("accessToken", payload.token);
+    state.accessToken = payload.token;
   },
 };
 

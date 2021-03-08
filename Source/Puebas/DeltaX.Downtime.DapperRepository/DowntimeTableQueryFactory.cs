@@ -1,22 +1,22 @@
 ﻿namespace DeltaX.Downtime.DapperRepository
 {
-    using DeltaX.Downtime.DapperRepository.Dto;
+    using DeltaX.Downtime.DapperRepository.Models;
     using DeltaX.Repository.Common.Table;
 
     public class DowntimeTableQueryFactory : TableQueryFactory
     {
         public DowntimeTableQueryFactory() : base(Dialect.SQLite)
         {
-            ConfigureTable<ProcessHistoryDto>("ProcessHistory", cfgTbl =>
+            ConfigureTable<ProcessHistoryModel>("ProcessHistory", cfgTbl =>
             {
                 cfgTbl.AddColumn(c => c.Id, null, false, true);
-                cfgTbl.AddColumn(c => c.StartProcessDateTimeDb, nameof(ProcessHistoryDto.StartProcessDateTime));
-                cfgTbl.AddColumn(c => c.FinishProcessDateTimeDb, nameof(ProcessHistoryDto.FinishProcessDateTime)); 
+                cfgTbl.AddColumn(c => c.StartProcessDateTimeDb, nameof(ProcessHistoryModel.StartProcessDateTime));
+                cfgTbl.AddColumn(c => c.FinishProcessDateTimeDb, nameof(ProcessHistoryModel.FinishProcessDateTime)); 
                 cfgTbl.AddColumn(c => c.ProductSpecificationCode);
                 cfgTbl.AddColumn(c => c.CreatedAt, c => { c.IgnoreInsert = true; c.IgnoreUpdate = true; });
             });
 
-            ConfigureTable<InterruptionHistoryDto>("InterruptionHistory", cfgTbl =>
+            ConfigureTable<InterruptionHistoryModel>("InterruptionHistory", cfgTbl =>
             {
                 cfgTbl.AddColumn(c => c.Id, null, true, true);
                 cfgTbl.AddColumn(c => c.ProcessHistoryId);
@@ -25,7 +25,7 @@
                 cfgTbl.AddColumn(c => c.CreatedAt, c => { c.IgnoreInsert = true; c.IgnoreUpdate = true; });
             });
 
-            ConfigureTable<ProductSpecificationDto>("ProductSpecification", cfgTbl =>
+            ConfigureTable<ProductSpecificationModel>("ProductSpecification", cfgTbl =>
             {
                 cfgTbl.AddColumn(c => c.Id, null, true, false);
                 cfgTbl.AddColumn(c => c.Code);

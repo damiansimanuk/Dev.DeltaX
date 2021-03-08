@@ -15,14 +15,14 @@ let refreshTokenTimer: any = null;
 
 const actions = {
 
-  async Login(context: ActionContext<State, any>, credential: { Username: string, Password: string }) {
-    console.log("Auth Action Login", credential.Username);
+  async Login(context: ActionContext<State, any>, credential: { username: string, password: string }) {
+    console.log("Auth Action Login", credential.username);
     try {
       const response = await request.post<UserInfo>(`/Users/login`, credential);
-      console.log("loged as FullName", response.data.FullName);
+      console.log("loged as FullName", response.data.fullName);
 
       COMMIT(context.commit, "LOGIN", {
-        Token: response.data.Token || "",
+        token: response.data.token || "",
         user: response.data
       });
 
@@ -79,7 +79,7 @@ const actions = {
   async RefreshToken(context: ActionContext<State, any>) {
     try {
       const response = await request.post<UserInfo>(`/Users/refresh-token`);
-      COMMIT(context.commit, "SAVE_TOKEN", { Token: response.data.Token || "" });
+      COMMIT(context.commit, "SAVE_TOKEN", { token: response.data.token || "" });
     } catch (e) {
       console.log(" refreshToken error", e.response, e);
       if (e.response && [400, 401, 403].includes(e.response.status)) {

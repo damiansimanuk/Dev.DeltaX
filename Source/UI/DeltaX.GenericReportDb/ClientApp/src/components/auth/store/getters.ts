@@ -8,7 +8,7 @@ const getters = {
 
   userPermission: function (state: State): string[] {
     const rls = state.roles || [];
-    return rls.map((r) => r.RolName.toUpperCase());
+    return rls.map((r) => r.rolName.toUpperCase());
   },
 
   checkPermission: function (state: State) {
@@ -34,8 +34,8 @@ const getters = {
 
   userInfo: function (state: State): UserInfo {
     return state.user || {
-      Id: 0,
-      Username: "Anonimous"
+      id: 0,
+      username: "Anonimous"
     };
   }
 }

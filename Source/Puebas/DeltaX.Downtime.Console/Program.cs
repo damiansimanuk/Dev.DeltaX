@@ -1,4 +1,4 @@
-﻿using Autofac;
+﻿using Autofac; 
 using Dapper;
 using DeltaX.Database;
 using DeltaX.Downtime.Application;
@@ -64,18 +64,19 @@ namespace DeltaX.Downtime.Console
 
                 log.Information("Start...");
                 var container = builder.Build();
+                 
 
-                 using (var scope = container.BeginLifetimeScope())
-                {
-                    var applicationService = container.Resolve<DowntimeApplicationService>();
+                using (var scope = container.BeginLifetimeScope())
+                {   
+                    var applicationService = scope.Resolve<DowntimeApplicationService>();
                     applicationService.PruebaInsertAndUpdate();
 
                     scope.Dispose();
                 }
 
                 var startup = container.Resolve<Startup>();
-                // startup.Start();  
-                GC.SuppressFinalize(builder);
+                startup.Start();   
+                container.Dispose(); 
             }
             catch (Exception e)
             {

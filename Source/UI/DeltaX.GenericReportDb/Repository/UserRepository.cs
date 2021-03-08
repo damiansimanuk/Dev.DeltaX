@@ -33,7 +33,7 @@ namespace DeltaX.GenericReportDb.Repository
             var user = await connection.QueryFirstAsync<User>(SqlQueries.GetUserDetail, new { Id = id });
             if (user != null)
             {
-                var roles = await connection.QueryAsync<RolePermissions>(SqlQueries.GetRolesList, new { user.Id });
+                var roles = await connection.QueryAsync<RolePermissions>(SqlQueries.GetRolesByUserId, new { user.Id });
                 user.Roles = roles.ToArray();
             }
             return user;
@@ -45,7 +45,7 @@ namespace DeltaX.GenericReportDb.Repository
             var user = await connection.QueryFirstAsync<User>(SqlQueries.GetUserDetailByName, new { Username = username });
             if (user != null)
             {
-                var roles = await connection.QueryAsync<RolePermissions>(SqlQueries.GetRolesList, new { user.Id });
+                var roles = await connection.QueryAsync<RolePermissions>(SqlQueries.GetRolesByUserId, new { user.Id });
                 user.Roles = roles.ToArray();
             }
             return user;

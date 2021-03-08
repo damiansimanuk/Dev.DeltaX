@@ -1,10 +1,10 @@
-﻿namespace DeltaX.Downtime.DapperRepository.Dto
+﻿namespace DeltaX.Downtime.DapperRepository.Models
 {
     using DeltaX.Domain.Common.Entities;
     using DeltaX.Repository.Common.Table;
     using System;
 
-    public class ProductSpecificationDto : IEntity<int>, ITableDto
+    public class ProductSpecificationModel : IEntity<int>, ITableDto
     {
         public int Id { get; set; }
 

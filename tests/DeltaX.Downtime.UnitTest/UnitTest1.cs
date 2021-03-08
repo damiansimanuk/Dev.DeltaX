@@ -1,5 +1,5 @@
 using DeltaX.Downtime.DapperRepository;
-using DeltaX.Downtime.DapperRepository.Dto;
+using DeltaX.Downtime.DapperRepository.Models;
 using DeltaX.Downtime.Domain.ProcessAggregate;
 using DeltaX.Repository.Common.Table;
 using NUnit.Framework;
@@ -52,20 +52,20 @@ namespace DeltaX.Downtime.UnitTest
         [Test]
         public void Test_object_reflection()
         {
-            ProcessHistoryDto dto = null;
+            ProcessHistoryModel dto = null;
             var propertyInfo = GetPropertyInfo(dto, dto => dto.Interruption );
 
-            GetIdentityFieldd<ProcessHistoryDto>(a => a.Id);
+            GetIdentityFieldd<ProcessHistoryModel>(a => a.Id);
         }
         
         
         [Test]
         public void Test_object_mapper()
         {
-            var processHistoryDto = Activator.CreateInstance<ProcessHistoryDto>();
+            var processHistoryDto = Activator.CreateInstance<ProcessHistoryModel>();
             var t = processHistoryDto.GetType(); 
 
-            ProcessHistoryDto processHistoryDto2 = default; 
+            ProcessHistoryModel processHistoryDto2 = default; 
         }
 
         [Test]
@@ -73,25 +73,25 @@ namespace DeltaX.Downtime.UnitTest
         {
             var tablesFactory = new TableQueryFactory(Dialect.SQLite);
 
-            tablesFactory.ConfigureTable<ProcessHistoryDto>("ProcessHistory", cfgTbl =>
+            tablesFactory.ConfigureTable<ProcessHistoryModel>("ProcessHistory", cfgTbl =>
             {
-                ProcessHistoryDto dto = cfgTbl.Table;
+                ProcessHistoryModel dto = cfgTbl.Table;
                 cfgTbl.AddColumn(nameof(dto.Id), "ProcessHistoryId", false, true);
                 cfgTbl.AddColumn(nameof(dto.StartProcessDateTime) ); 
                 cfgTbl.AddColumn(nameof(dto.FinishProcessDateTime));
                 cfgTbl.AddColumn(nameof(dto.ProductSpecificationCode));  
             });
 
-            tablesFactory.ConfigureTable<InterruptionHistoryDto>("InterruptionHistory", cfgTbl =>
+            tablesFactory.ConfigureTable<InterruptionHistoryModel>("InterruptionHistory", cfgTbl =>
             {
-                InterruptionHistoryDto dto = cfgTbl.Table;
+                InterruptionHistoryModel dto = cfgTbl.Table;
                 cfgTbl.AddColumn(nameof(dto.Id), null, true, true);
                 cfgTbl.AddColumn(nameof(dto.ProcessHistoryId));
                 cfgTbl.AddColumn(nameof(dto.StartDateTime));
                 cfgTbl.AddColumn(nameof(dto.EndDateTime));
             });
 
-            tablesFactory.ConfigureTable<ProductSpecificationDto>("ProductSpecification", cfgTbl =>
+            tablesFactory.ConfigureTable<ProductSpecificationModel>("ProductSpecification", cfgTbl =>
             {
                 cfgTbl.AddColumn(c => c.Id, null, false, false);
                 cfgTbl.AddColumn(c => c.Code);
@@ -99,14 +99,14 @@ namespace DeltaX.Downtime.UnitTest
                 cfgTbl.AddColumn(c => c.CreatedAt, c => { c.IgnoreInsert = true; c.IgnoreUpdate = true; });
             });
 
-            var res = tablesFactory.GetPagedListQuery<ProcessHistoryDto>();
-            res = tablesFactory.GetSingleQuery<ProcessHistoryDto>();
-            res = tablesFactory.GetDeleteQuery<ProcessHistoryDto>();
-            res = tablesFactory.GetUpdateQuery<ProcessHistoryDto>();
-            res = tablesFactory.GetUpdateQuery<ProductSpecificationDto>();
+            var res = tablesFactory.GetPagedListQuery<ProcessHistoryModel>();
+            res = tablesFactory.GetSingleQuery<ProcessHistoryModel>();
+            res = tablesFactory.GetDeleteQuery<ProcessHistoryModel>();
+            res = tablesFactory.GetUpdateQuery<ProcessHistoryModel>();
+            res = tablesFactory.GetUpdateQuery<ProductSpecificationModel>();
 
             bool isIdentity;
-            var res2 = tablesFactory.GetInsertQuery<ProcessHistoryDto>();
+            var res2 = tablesFactory.GetInsertQuery<ProcessHistoryModel>();
             Console.WriteLine(res);
         }
 
@@ -117,13 +117,13 @@ namespace DeltaX.Downtime.UnitTest
             /// ProcessHistoryRepository processHistoryRepository = new ProcessHistoryRepository(null, new DowntimeRepositoryMapper());
             var mapper = new DowntimeRepositoryMapper();
 
-            var item = new ProcessHistoryDto { 
+            var item = new ProcessHistoryModel { 
                 Id =Guid.NewGuid(),
                 FinishProcessDateTime = DateTime.Now,
                 StartProcessDateTime = DateTime.Now.AddMinutes(-1)
             };
             var entity = mapper.Map<ProcessHistory>(item);
-            var newItem = mapper.Map<ProcessHistoryDto>(entity);
+            var newItem = mapper.Map<ProcessHistoryModel>(entity);
 
             Assert.AreEqual(item.Id, newItem.Id); 
             Assert.AreEqual(item.StartProcessDateTime, newItem.StartProcessDateTime); 
@@ -138,25 +138,25 @@ namespace DeltaX.Downtime.UnitTest
             var id = Guid.NewGuid();
             var interruptionId = 23;
 
-            var item = new ProcessHistoryDto
+            var item = new ProcessHistoryModel
             {
                 Id = id,
                 FinishProcessDateTime = DateTime.Now,
                 StartProcessDateTime = DateTime.Now.AddMinutes(-1),
-                Interruption = new InterruptionHistoryDto
+                Interruption = new InterruptionHistoryModel
                 {
                     Id = interruptionId,
                     StartDateTime = DateTime.Now.AddSeconds(-10),
                     EndDateTime = DateTime.Now
                 },
-                ProductSpecification = new ProductSpecificationDto
+                ProductSpecification = new ProductSpecificationModel
                 {
                     Code = "Codio1",
                     StandarDuration = 3
                 }
             };
             var entity = mapper.Map<ProcessHistory>(item);
-            var newItem = mapper.Map<ProcessHistoryDto>(entity);
+            var newItem = mapper.Map<ProcessHistoryModel>(entity);
 
             Assert.AreEqual(id, newItem.Id);
             Assert.AreEqual(interruptionId, newItem.Interruption.Id);

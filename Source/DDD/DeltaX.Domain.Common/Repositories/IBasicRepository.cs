@@ -11,13 +11,13 @@
 
         Task<TEntity> UpdateAsync(TEntity entity);
 
-        Task DeleteAsync(TEntity entity);
-
+        Task DeleteAsync(TEntity entity); 
     }
 
     public interface IBasicRepository<TEntity, TKey> : IBasicRepository<TEntity>, IReadRepository<TEntity, TKey>
-        where TEntity : class, IEntity<TKey>
+        where TEntity : class, IEntity, IEntity<TKey>
     {
-        Task DeleteAsync(TKey id);
+        // Remove this because change tracker
+        // Task DeleteAsync(TKey id);
     }
 }

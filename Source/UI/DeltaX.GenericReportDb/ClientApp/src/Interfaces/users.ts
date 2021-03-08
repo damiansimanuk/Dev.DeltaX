@@ -6,20 +6,20 @@ export interface User {
 }
 
 export interface Role {
-    RolId: number;
-    RolName: string;
-    C: number;
-    R: number;
-    U: number;
-    D: number;
+    rolId: number;
+    rolName: string;
+    c: number;
+    r: number;
+    u: number;
+    d: number;
 }
 
 export interface UserInfo {
-    Id: number;
-    Username: string;
-    FullName?: string;
-    Email?: string;
-    Image?: string;
-    Roles?: Role[];
-    Token?: string;
+    id: number;
+    username: string;
+    fullName?: string;
+    email?: string;
+    image?: string;
+    roles?: Role[];
+    token?: string;
 }

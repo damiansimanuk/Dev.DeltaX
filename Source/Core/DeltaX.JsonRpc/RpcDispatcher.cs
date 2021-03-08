@@ -103,7 +103,7 @@
         {
             if (methods.ContainsKey(msg.MethodName))
             {
-                DoInvoke(msg);
+                _ = DoInvoke(msg);
             }
         }
 

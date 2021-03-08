@@ -1,5 +1,8 @@
-﻿using DeltaX.Cache;
+﻿using Autofac; 
+using DeltaX.Cache;
 using DeltaX.Domain.Common;
+using DeltaX.Domain.Common.Entities;
+using DeltaX.Domain.Common.Repositories;
 using DeltaX.Downtime.Domain;
 using DeltaX.Downtime.Domain.ProcessAggregate; 
 using Microsoft.Extensions.Logging;
@@ -9,11 +12,12 @@ using System.Transactions;
 
 namespace DeltaX.Downtime.Application
 {
-    public class DowntimeApplicationService : IApplicationService
+    public class DowntimeApplicationService : IDowntimeApplicationService  
     {
         IDowntimeRepository repository;
         ILogger logger;
         TransactionItems<string> items;
+
 
         public DowntimeApplicationService(
             IDowntimeRepository repository,
@@ -22,7 +26,7 @@ namespace DeltaX.Downtime.Application
         {
             this.repository = repository;
             this.logger = logger;
-            this.items = items;
+            this.items = items; 
 
             logger.LogInformation("Hola mundo info");
             logger.LogError("Hola mundo error");
@@ -47,7 +51,7 @@ namespace DeltaX.Downtime.Application
                 inserted.SetProductSpecification(product2);
                 inserted.FinishProcess(DateTime.Now);
 
-                updated = repository.UpdateAsync(inserted).Result;
+                updated = repository.UpdateAsync(inserted).Result; 
                 
                 scope.Complete();
             }
@@ -69,9 +73,11 @@ namespace DeltaX.Downtime.Application
             item.FinishProcess(DateTime.Now);
 
             var updated = repository.UpdateAsync(item).Result;
+             
 
             return updated.Id;
         }
+         
 
     }
 

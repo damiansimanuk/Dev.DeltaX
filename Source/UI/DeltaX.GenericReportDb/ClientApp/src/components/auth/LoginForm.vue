@@ -137,7 +137,7 @@ export default class LoginForm extends Vue {
     ];
   }
   get credential() {
-    const credentials = { Username: this.user, Password: this.password };
+    const credentials = { username: this.user, password: this.password };
     return credentials;
   }
 

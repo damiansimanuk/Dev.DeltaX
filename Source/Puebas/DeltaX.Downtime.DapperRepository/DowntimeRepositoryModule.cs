@@ -24,10 +24,7 @@
                 {
                     try
                     {
-                        if (a.IsInTransaction())
-                        {
-                            a.CommitTransaction();
-                        }
+                        a.SaveChanges();
                     }
                     finally
                     {

@@ -5,7 +5,7 @@
     using System.Data;
     using System.Threading.Tasks;
 
-    public class DatabaseBase
+    public class DatabaseBase : IDatabaseBase
     {
 
         private object _locker = new object();
@@ -48,7 +48,7 @@
                 log = logger;
             }
         }
-         
+
 
         /// <summary>
         /// Execute Action with current DbConnection if valid 
@@ -157,11 +157,11 @@
         public IDbConnection GetConnection()
         {
             Exception exception = new ArgumentNullException("ConnectionStrings List Error");
-            for (int idx = 0; idx < connectionStrings.Length; idx++)
+            foreach (string connectionString in connectionStrings)
             {
                 try
                 {
-                    var dbConn = Connect(connectionStrings[idx]);
+                    var dbConn = Connect(connectionString);
                     if (dbConn.State.HasFlag(ConnectionState.Open))
                         return dbConn;
 
@@ -215,7 +215,7 @@
             catch (Exception ex)
             {
                 log?.LogError(ex, "Database Connect excepcion");
-                throw ex;
+                throw;
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿namespace DeltaX.Downtime.DapperRepository
 {
     using AutoMapper;
-    using DeltaX.Downtime.DapperRepository.Dto;
+    using DeltaX.Downtime.DapperRepository.Models;
     using DeltaX.Downtime.Domain.ProcessAggregate; 
 
     public class DowntimeRepositoryMapper
@@ -12,9 +12,9 @@
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ProcessHistoryDto, ProcessHistory>().ReverseMap();
-                cfg.CreateMap<InterruptionHistoryDto, InterruptionHistory>().ReverseMap();
-                cfg.CreateMap<ProductSpecificationDto, ProductSpecification>().ReverseMap();
+                cfg.CreateMap<ProcessHistoryModel, ProcessHistory>().ReverseMap();
+                cfg.CreateMap<InterruptionHistoryModel, InterruptionHistory>().ReverseMap();
+                cfg.CreateMap<ProductSpecificationModel, ProductSpecification>().ReverseMap();
             });
 
             mapper = config.CreateMapper();

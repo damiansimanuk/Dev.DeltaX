@@ -1,17 +1,18 @@
 ﻿namespace DeltaX.Domain.Common.Events
 {  
     using System.Collections.Generic;
-
+    using System.Collections.ObjectModel;
+    using System.Linq;
 
     public class EventStore : IEventStore
     {
-        private List<INotificationEto> collection;
+        private ICollection<INotificationEto> collection;
 
         public EventStore()
         {
             lock (collection)
             {
-                collection = new List<INotificationEto>();
+                collection = new Collection<INotificationEto>();
             }
         }
 
@@ -37,6 +38,11 @@
             {
                 collection.Remove(eventItem);
             }
+        }
+
+        public IEnumerable<INotificationEto> ToArray()
+        {
+            return collection.ToArray();
         }
     }
 }

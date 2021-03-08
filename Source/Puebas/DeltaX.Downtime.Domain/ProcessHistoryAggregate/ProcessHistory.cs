@@ -33,7 +33,7 @@ namespace DeltaX.Downtime.Domain.ProcessAggregate
         {
             FinishProcessDateTime = finish;
 
-            if (ProductSpecification.StandarDuration < (DateTime.Now - StartProcessDateTime).TotalSeconds)
+            if (ProductSpecification.StandarDuration < (finish - StartProcessDateTime).TotalSeconds)
             {
                 UpdateInterruption();
             }

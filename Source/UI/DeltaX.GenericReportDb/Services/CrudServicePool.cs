@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DeltaX.GenericReportDb.Services
 {
-    public class CrudServiceBuilder
+    public class CrudServicePool
     {
         private readonly IConfiguration configuration;
         private readonly CrudConfiguration crudConfiguration;
@@ -15,7 +15,7 @@ namespace DeltaX.GenericReportDb.Services
         private readonly ILogger<CrudService> logger;
         private ConcurrentDictionary<string, CrudService> crudServices;
 
-        public CrudServiceBuilder(
+        public CrudServicePool(
             IConfiguration configuration,
             CrudConfiguration crudConfiguration,
             IUserService userService,
@@ -37,7 +37,7 @@ namespace DeltaX.GenericReportDb.Services
             logger?.LogInformation("InitializeCrudServices Count:{0}", configNames.Count());
             foreach(var configName in configNames)
             {
-                GetCrudService(configName);
+                GetService(configName);
             }
         }
 
@@ -47,39 +47,39 @@ namespace DeltaX.GenericReportDb.Services
         }
 
 
-        public CrudService GetCrudService(string configName, bool forceRefresh = false)
+        public CrudService GetService(string configName, bool forceRefresh = false)
         {
-            CrudService crud;
-            if (crudServices.TryGetValue(configName, out crud))
+            CrudService service;
+            if (crudServices.TryGetValue(configName, out service))
             {
                 var modified = crudConfiguration.GetModification(configName);
                 logger?.LogDebug("dateModification < crud.DateTimeInstanced: {0} < {1}",
-                   modified, crud.ReloadAt);
+                   modified, service.ReloadAt);
 
-                if (modified < crud.ReloadAt && forceRefresh == false)
+                if (modified < service.ReloadAt && forceRefresh == false)
                 {
-                    return crud;
+                    return service;
                 }
             }
 
             var endpointConfig = crudConfiguration.Read(configName);
-            if (crud == null)
+            if (service == null)
             {
-                crud = new CrudService(endpointConfig, logger);
+                service = new CrudService(endpointConfig, logger);
             }
             else
             {
-                crud.SetConfiguration(endpointConfig);
+                service.SetConfiguration(endpointConfig);
             }
 
             // Create Roles 
-            foreach (var roleName in crud.Configuration.PermissionsRoles)
+            foreach (var roleName in service.Configuration.PermissionsRoles)
             {
                 userService.CreateRoleIfNotExist(roleName);
             }
 
-            crudServices[configName] = crud;
-            return crud;
+            crudServices[configName] = service;
+            return service;
         }
     }
 }
